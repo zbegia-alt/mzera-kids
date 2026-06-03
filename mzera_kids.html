@@ -11,8 +11,7 @@
 :root {
   --sky:#e8f4fd;--ground:#f0faf0;
   --blue:#4a9eff;--green:#44cc77;--orange:#ff8c42;--purple:#9b59ff;--red:#ff5252;--yellow:#ffd93d;
-  --card-bg:#fff;--shadow:0 8px 32px rgba(0,0,0,0.12);
-  --radius:24px;
+  --card-bg:#fff;--shadow:0 8px 32px rgba(0,0,0,0.12);--radius:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{
@@ -22,91 +21,76 @@ body{
   padding:16px;overflow-x:hidden;
 }
 
-/* ── header ── */
-.header{text-align:center;margin-bottom:20px;}
+.header{text-align:center;margin-bottom:16px;}
 .logo{font-size:36px;font-weight:900;
       background:linear-gradient(135deg,var(--blue),var(--purple));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      background-clip:text;}
-.tagline{font-size:14px;color:#888;margin-top:2px;}
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.tagline{font-size:13px;color:#888;margin-top:2px;}
 
-/* ── stars ── */
-.stars{display:flex;gap:8px;justify-content:center;margin-bottom:16px;}
-.star{font-size:28px;transition:transform 0.3s;filter:grayscale(1);opacity:0.3;}
+/* პროგრესი */
+.progress-wrap{width:100%;max-width:420px;margin-bottom:12px;}
+.progress-info{display:flex;justify-content:space-between;
+               font-size:12px;color:#999;font-weight:700;margin-bottom:6px;}
+.progress-bar{height:10px;background:#e0e0e0;border-radius:10px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:10px;transition:width 0.4s ease;
+               background:linear-gradient(90deg,var(--blue),var(--purple));}
+
+.stars{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+.star{font-size:26px;transition:transform 0.3s;filter:grayscale(1);opacity:0.3;}
 .star.earned{filter:none;opacity:1;animation:starPop 0.4s ease;}
 @keyframes starPop{0%{transform:scale(0)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
 
-/* ── კითხვა ── */
 .question-box{
   background:var(--card-bg);border-radius:var(--radius);
   padding:20px 24px;width:100%;max-width:420px;
-  box-shadow:var(--shadow);margin-bottom:20px;
-  text-align:center;
+  box-shadow:var(--shadow);margin-bottom:16px;text-align:center;
 }
 .question-label{font-size:13px;color:#aaa;margin-bottom:8px;font-weight:700;letter-spacing:0.05em;}
-.question-word{
-  font-size:42px;font-weight:900;color:#333;
-  transition:all 0.3s;
-}
+.question-word{font-size:42px;font-weight:900;color:#333;transition:all 0.3s;}
 .question-word.bounce{animation:bounce 0.5s ease;}
 @keyframes bounce{0%,100%{transform:scale(1)}30%{transform:scale(1.15)}60%{transform:scale(0.95)}}
-
 .question-hint{font-size:13px;color:#bbb;margin-top:8px;}
 
-/* ── კატეგორიების ღილაკები ── */
 .categories{
   display:grid;grid-template-columns:1fr 1fr;
-  gap:12px;width:100%;max-width:420px;margin-bottom:20px;
+  gap:12px;width:100%;max-width:420px;margin-bottom:16px;
 }
 .cat-btn{
   background:var(--card-bg);border:3px solid transparent;
-  border-radius:var(--radius);padding:20px 12px;
+  border-radius:var(--radius);padding:18px 12px;
   font-family:'Nunito','Noto Sans Georgian',sans-serif;
-  font-size:18px;font-weight:800;color:#555;
+  font-size:17px;font-weight:800;color:#555;
   cursor:pointer;transition:all 0.2s;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  box-shadow:var(--shadow);
-  -webkit-user-select:none;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  box-shadow:var(--shadow);-webkit-user-select:none;user-select:none;
 }
 .cat-btn:active{transform:scale(0.95);}
-.cat-btn .emoji{font-size:36px;}
+.cat-btn .emoji{font-size:32px;}
 .cat-btn[data-cat="ცხოველი"]{border-color:var(--orange);}
-.cat-btn[data-cat="ცხოველი"]:hover,.cat-btn[data-cat="ცხოველი"]:active{background:rgba(255,140,66,0.1);}
+.cat-btn[data-cat="ცხოველი"]:hover{background:rgba(255,140,66,0.1);}
 .cat-btn[data-cat="საკვები"]{border-color:var(--green);}
-.cat-btn[data-cat="საკვები"]:hover,.cat-btn[data-cat="საკვები"]:active{background:rgba(68,204,119,0.1);}
+.cat-btn[data-cat="საკვები"]:hover{background:rgba(68,204,119,0.1);}
 .cat-btn[data-cat="ტანსაცმელი"]{border-color:var(--purple);}
-.cat-btn[data-cat="ტანსაცმელი"]:hover,.cat-btn[data-cat="ტანსაცმელი"]:active{background:rgba(155,89,255,0.1);}
+.cat-btn[data-cat="ტანსაცმელი"]:hover{background:rgba(155,89,255,0.1);}
 .cat-btn[data-cat="სახლი"]{border-color:var(--blue);}
-.cat-btn[data-cat="სახლი"]:hover,.cat-btn[data-cat="სახლი"]:active{background:rgba(74,158,255,0.1);}
-
+.cat-btn[data-cat="სახლი"]:hover{background:rgba(74,158,255,0.1);}
 .cat-btn.correct{animation:correct 0.5s ease;background:rgba(68,204,119,0.15);}
 .cat-btn.wrong{animation:wrong 0.4s ease;}
 @keyframes correct{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes wrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 
-/* ── ქულა ── */
-.score-row{
-  display:flex;gap:16px;justify-content:center;
-  width:100%;max-width:420px;margin-bottom:16px;
-}
-.score-card{
-  flex:1;background:var(--card-bg);border-radius:16px;
-  padding:12px;text-align:center;box-shadow:var(--shadow);
-}
-.score-card .num{font-size:28px;font-weight:900;}
+.score-row{display:flex;gap:12px;justify-content:center;width:100%;max-width:420px;margin-bottom:14px;}
+.score-card{flex:1;background:var(--card-bg);border-radius:16px;padding:10px;text-align:center;box-shadow:var(--shadow);}
+.score-card .num{font-size:26px;font-weight:900;}
 .score-card .lbl{font-size:11px;color:#aaa;font-weight:700;}
 .score-card.correct-s .num{color:var(--green);}
 .score-card.wrong-s .num{color:var(--red);}
 .score-card.streak-s .num{color:var(--orange);}
 
-/* ── feedback ── */
 .feedback{
-  font-size:32px;position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;opacity:0;
-  transition:opacity 0.1s;font-weight:900;
-  z-index:100;
-  text-shadow:0 4px 20px rgba(0,0,0,0.2);
+  font-size:28px;position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+  z-index:100;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.2);
 }
 .feedback.show{opacity:1;animation:feedbackAnim 0.8s ease forwards;}
 @keyframes feedbackAnim{
@@ -115,20 +99,36 @@ body{
   100%{opacity:0;transform:translate(-50%,-80%) scale(1)}
 }
 
-/* ── Q-table badge ── */
-.ai-info{
-  width:100%;max-width:420px;
-  background:rgba(255,255,255,0.7);border-radius:16px;
-  padding:12px 16px;font-size:12px;color:#999;
-  border:1px solid rgba(0,0,0,0.06);
-  margin-bottom:8px;
+/* დასასრულის ეკრანი */
+.finish-screen{
+  display:none;flex-direction:column;align-items:center;
+  background:var(--card-bg);border-radius:var(--radius);
+  padding:32px 24px;width:100%;max-width:420px;
+  box-shadow:var(--shadow);text-align:center;gap:16px;
 }
-.ai-info strong{color:#666;}
+.finish-screen.show{display:flex;}
+.finish-emoji{font-size:72px;animation:bounce 0.6s ease;}
+.finish-title{font-size:28px;font-weight:900;color:#333;}
+.finish-sub{font-size:15px;color:#888;}
+.finish-stars{font-size:36px;letter-spacing:4px;}
+.finish-stats{display:flex;gap:16px;justify-content:center;width:100%;}
+.fstat{flex:1;background:#f8f8f8;border-radius:16px;padding:12px;text-align:center;}
+.fstat .fn{font-size:28px;font-weight:900;}
+.fstat .fl{font-size:11px;color:#aaa;font-weight:700;}
+.fstat.fc .fn{color:var(--green);}
+.fstat.fw .fn{color:var(--red);}
 
-/* ── PWA install hint ── */
-.install-hint{
-  font-size:12px;color:#bbb;text-align:center;margin-top:8px;
+.btn-restart{
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;border:none;border-radius:16px;
+  padding:16px 40px;font-size:18px;font-weight:900;
+  cursor:pointer;box-shadow:0 4px 20px rgba(74,158,255,0.4);
+  font-family:'Nunito','Noto Sans Georgian',sans-serif;
+  transition:transform 0.2s;
 }
+.btn-restart:active{transform:scale(0.95);}
+
+.game-wrap{display:flex;flex-direction:column;align-items:center;width:100%;}
 </style>
 </head>
 <body>
@@ -138,197 +138,207 @@ body{
   <div class="tagline">სიტყვების თამაში</div>
 </div>
 
-<div class="stars" id="stars">
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-  <div class="star">⭐</div>
-</div>
-
-<div class="question-box">
-  <div class="question-label">რომელ ჯგუფს მიეკუთვნება?</div>
-  <div class="question-word" id="word">...</div>
-  <div class="question-hint" id="hint">აირჩიე სწორი კატეგორია</div>
-</div>
-
-<div class="categories">
-  <button class="cat-btn" data-cat="ცხოველი" onclick="answer('ცხოველი')">
-    <span class="emoji">🐾</span>ცხოველი
-  </button>
-  <button class="cat-btn" data-cat="საკვები" onclick="answer('საკვები')">
-    <span class="emoji">🍎</span>საკვები
-  </button>
-  <button class="cat-btn" data-cat="ტანსაცმელი" onclick="answer('ტანსაცმელი')">
-    <span class="emoji">👕</span>ტანსაცმელი
-  </button>
-  <button class="cat-btn" data-cat="სახლი" onclick="answer('სახლი')">
-    <span class="emoji">🏠</span>სახლი
-  </button>
-</div>
-
-<div class="score-row">
-  <div class="score-card correct-s">
-    <div class="num" id="s-correct">0</div>
-    <div class="lbl">✓ სწორი</div>
+<!-- თამაშის ეკრანი -->
+<div class="game-wrap" id="game-wrap">
+  <div class="progress-wrap">
+    <div class="progress-info">
+      <span id="prog-text">1 / 20</span>
+      <span id="prog-pct">0%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
   </div>
-  <div class="score-card wrong-s">
-    <div class="num" id="s-wrong">0</div>
-    <div class="lbl">✗ შეცდომა</div>
+
+  <div class="stars" id="stars">
+    <div class="star">⭐</div><div class="star">⭐</div><div class="star">⭐</div>
+    <div class="star">⭐</div><div class="star">⭐</div>
   </div>
-  <div class="score-card streak-s">
-    <div class="num" id="s-streak">0</div>
-    <div class="lbl">🔥 ზედიზედ</div>
+
+  <div class="question-box">
+    <div class="question-label">რომელ ჯგუფს მიეკუთვნება?</div>
+    <div class="question-word" id="word">...</div>
+    <div class="question-hint" id="hint">აირჩიე სწორი კატეგორია</div>
+  </div>
+
+  <div class="categories">
+    <button class="cat-btn" data-cat="ცხოველი" onclick="answer('ცხოველი')">
+      <span class="emoji">🐾</span>ცხოველი
+    </button>
+    <button class="cat-btn" data-cat="საკვები" onclick="answer('საკვები')">
+      <span class="emoji">🍎</span>საკვები
+    </button>
+    <button class="cat-btn" data-cat="ტანსაცმელი" onclick="answer('ტანსაცმელი')">
+      <span class="emoji">👕</span>ტანსაცმელი
+    </button>
+    <button class="cat-btn" data-cat="სახლი" onclick="answer('სახლი')">
+      <span class="emoji">🏠</span>სახლი
+    </button>
+  </div>
+
+  <div class="score-row">
+    <div class="score-card correct-s"><div class="num" id="s-correct">0</div><div class="lbl">✓ სწორი</div></div>
+    <div class="score-card wrong-s"><div class="num" id="s-wrong">0</div><div class="lbl">✗ შეცდომა</div></div>
+    <div class="score-card streak-s"><div class="num" id="s-streak">0</div><div class="lbl">🔥 ზედიზედ</div></div>
   </div>
 </div>
 
-<div class="ai-info">
-  <strong>🤖 მზერა სწავლობს:</strong>
-  შენი პასუხებიდან სისტემა ისწავლის რომელი სიტყვა რომელ ჯგუფს ეკუთვნის.
-  <span id="ai-learned">0 კავშირი</span>
+<!-- დასასრულის ეკრანი -->
+<div class="finish-screen" id="finish-screen">
+  <div class="finish-emoji" id="fin-emoji">🎉</div>
+  <div class="finish-title" id="fin-title">მშვენიერია!</div>
+  <div class="finish-stars" id="fin-stars">⭐⭐⭐⭐⭐</div>
+  <div class="finish-sub" id="fin-sub">20 სიტყვა დასრულდა</div>
+  <div class="finish-stats">
+    <div class="fstat fc"><div class="fn" id="fin-correct">0</div><div class="fl">✓ სწორი</div></div>
+    <div class="fstat fw"><div class="fn" id="fin-wrong">0</div><div class="fl">✗ შეცდომა</div></div>
+  </div>
+  <button class="btn-restart" onclick="restart()">🔄 ხელახლა</button>
 </div>
 
 <div class="feedback" id="feedback"></div>
 
-<div class="install-hint">📱 ტელეფონზე: "მთავარ ეკრანზე დამატება"</div>
-
 <script>
-// ── სიტყვების ბაზა ────────────────────────────────────────────
+const TOTAL = 20;
+
 const WORDS = {
   ცხოველი: [
     {w:'კატა',e:'🐱'},{w:'ძაღლი',e:'🐶'},{w:'თაგვი',e:'🐭'},
     {w:'კურდღელი',e:'🐰'},{w:'ლომი',e:'🦁'},{w:'სპილო',e:'🐘'},
     {w:'ციყვი',e:'🐿️'},{w:'მელა',e:'🦊'},{w:'დათვი',e:'🐻'},
     {w:'ჟირაფი',e:'🦒'},{w:'ვეფხვი',e:'🐯'},{w:'მგელი',e:'🐺'},
-    {w:'კამეჩი',e:'🐃'},{w:'ცხვარი',e:'🐑'},{w:'თხა',e:'🐐'},
+    {w:'ცხვარი',e:'🐑'},{w:'თხა',e:'🐐'},{w:'ირემი',e:'🦌'},
   ],
   საკვები: [
     {w:'ვაშლი',e:'🍎'},{w:'პური',e:'🍞'},{w:'ყველი',e:'🧀'},
     {w:'კვერცხი',e:'🥚'},{w:'ბანანი',e:'🍌'},{w:'მარწყვი',e:'🍓'},
     {w:'კომბოსტო',e:'🥬'},{w:'სტაფილო',e:'🥕'},{w:'კარტოფილი',e:'🥔'},
-    {w:'ბოლოკი',e:'🌿'},{w:'მანდარინი',e:'🍊'},{w:'ყურძენი',e:'🍇'},
-    {w:'ნახშირი',e:'🍚'},{w:'ტომატი',e:'🍅'},{w:'კიტრი',e:'🥒'},
+    {w:'მანდარინი',e:'🍊'},{w:'ყურძენი',e:'🍇'},{w:'ტომატი',e:'🍅'},
+    {w:'კიტრი',e:'🥒'},{w:'ხახვი',e:'🧅'},{w:'მსხალი',e:'🍐'},
   ],
   ტანსაცმელი: [
     {w:'პერანგი',e:'👔'},{w:'ქუდი',e:'🎩'},{w:'ფეხსაცმელი',e:'👟'},
     {w:'შარვალი',e:'👖'},{w:'კაბა',e:'👗'},{w:'ხელთათმანი',e:'🧤'},
-    {w:'წინდა',e:'🧦'},{w:'ქურთუკი',e:'🧥'},{w:'გალსტუხი',e:'👔'},
-    {w:'ქამარი',e:'🩲'},{w:'თბილი_ქუდი',e:'🧢'},{w:'სათვალე',e:'👓'},
+    {w:'წინდა',e:'🧦'},{w:'ქურთუკი',e:'🧥'},{w:'ჩექმა',e:'👢'},
+    {w:'სათვალე',e:'👓'},{w:'შარფი',e:'🧣'},{w:'ქამარი',e:'🪡'},
   ],
   სახლი: [
     {w:'მაგიდა',e:'🪑'},{w:'სკამი',e:'🪑'},{w:'საწოლი',e:'🛏️'},
     {w:'კარი',e:'🚪'},{w:'ფანჯარა',e:'🪟'},{w:'სარკე',e:'🪞'},
-    {w:'ქოთანი',e:'🫕'},{w:'ჩანგალი',e:'🍴'},{w:'კოვზი',e:'🥄'},
-    {w:'ნათურა',e:'💡'},{w:'საათი',e:'⏰'},{w:'წიგნი',e:'📚'},
-    {w:'ტელეფონი',e:'📱'},{w:'ჭიქა',e:'🥛'},{w:'თეფში',e:'🍽️'},
+    {w:'ქოთანი',e:'🫕'},{w:'კოვზი',e:'🥄'},{w:'ნათურა',e:'💡'},
+    {w:'საათი',e:'⏰'},{w:'წიგნი',e:'📚'},{w:'ჭიქა',e:'🥛'},
+    {w:'თეფში',e:'🍽️'},{w:'ხალიჩა',e:'🪆'},{w:'ბალიში',e:'🛋️'},
   ],
 };
 
 const CATS = Object.keys(WORDS);
 
-// ── LEARNED: Q-table ─────────────────────────────────────────
-const Q = {};  // {სიტყვა: {კატ: ქულა}}
-const learned = {};  // {სიტყვა: სწ_კატ}
-
-function getQ(word) {
-  if(!Q[word]) {
-    Q[word] = {};
-    CATS.forEach(c => Q[word][c] = 0);
-  }
-  return Q[word];
+// სიტყვების სია 20-ად
+function buildRound() {
+  let all = [];
+  CATS.forEach(cat => WORDS[cat].forEach(item => all.push({...item, cat})));
+  all = all.sort(() => Math.random() - 0.5);
+  return all.slice(0, TOTAL);
 }
 
-// HARDCODED: reward
-function qUpdate(word, chosen, correct) {
-  const q = getQ(word);
-  q[chosen] += chosen===correct ? 1.0 : -0.5;
-  q[correct] += chosen!==correct ? 0.3 : 0;
-  learned[word] = correct;
+let round = [], idx = 0, correctC = 0, wrongC = 0, streak = 0, answering = false;
+
+function start() {
+  round = buildRound();
+  idx = 0; correctC = 0; wrongC = 0; streak = 0;
+  document.getElementById('game-wrap').style.display = 'flex';
+  document.getElementById('finish-screen').classList.remove('show');
+  document.querySelectorAll('.star').forEach(s => s.classList.remove('earned'));
+  updateScore();
+  showWord();
 }
 
-// ── თამაშის მდგომარეობა ──────────────────────────────────────
-let current = null;
-let correctC = 0, wrongC = 0, streak = 0, maxStreak = 0;
-let starsEarned = 0;
-let allWords = [];
-let wordIndex = 0;
-let answering = false;
-
-// ყველა სიტყვა შევაერთოთ
-CATS.forEach(cat => {
-  WORDS[cat].forEach(item => {
-    allWords.push({word: item.w, emoji: item.e, cat: cat});
-  });
-});
-
-// შევურიოთ
-allWords = allWords.sort(() => Math.random() - 0.5);
-
-function nextWord() {
-  if(wordIndex >= allWords.length) {
-    wordIndex = 0;
-    allWords = allWords.sort(() => Math.random() - 0.5);
-  }
-  current = allWords[wordIndex++];
-
+function showWord() {
+  if(idx >= TOTAL) { finish(); return; }
+  const cur = round[idx];
   const el = document.getElementById('word');
-  el.textContent = current.emoji + ' ' + current.word;
+  el.textContent = cur.e + ' ' + cur.w;
   el.classList.remove('bounce');
   void el.offsetWidth;
   el.classList.add('bounce');
-
   document.getElementById('hint').textContent = 'აირჩიე სწორი კატეგორია';
-
-  // ღილაკები გავააქტიუროთ
   document.querySelectorAll('.cat-btn').forEach(b => {
     b.classList.remove('correct','wrong');
     b.disabled = false;
   });
+  // პროგრესი
+  document.getElementById('prog-text').textContent = (idx+1) + ' / ' + TOTAL;
+  const pct = Math.round(idx/TOTAL*100);
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
   answering = false;
 }
 
 function answer(chosen) {
-  if(answering || !current) return;
+  if(answering) return;
   answering = true;
+  const cur = round[idx];
+  const correct = cur.cat;
+  const ok = chosen === correct;
+  const btn = document.querySelector('[data-cat="'+chosen+'"]');
+  const cBtn = document.querySelector('[data-cat="'+correct+'"]');
 
-  const correct = current.cat;
-  const isCorrect = chosen === correct;
-
-  // LEARNED
-  qUpdate(current.word, chosen, correct);
-
-  // UI feedback
-  const btn = document.querySelector(`[data-cat="${chosen}"]`);
-  const correctBtn = document.querySelector(`[data-cat="${correct}"]`);
-
-  if(isCorrect) {
+  if(ok) {
     btn.classList.add('correct');
-    correctC++;
-    streak++;
-    if(streak > maxStreak) maxStreak = streak;
-    showFeedback('✓ ' + ['მშვენიერია!','ბრავო!','სწორია!','კარგია!','ზუსტი!'][Math.floor(Math.random()*5)], true);
+    correctC++; streak++;
+    showFeedback(['✓ ბრავო!','✓ სწორია!','✓ მშვენიერი!','✓ კარგია!'][Math.floor(Math.random()*4)], true);
   } else {
     btn.classList.add('wrong');
-    correctBtn.classList.add('correct');
-    wrongC++;
-    streak = 0;
-    showFeedback('✗ ცადე ისევ!', false);
+    cBtn.classList.add('correct');
+    wrongC++; streak = 0;
     document.getElementById('hint').textContent = '✓ სწორია: ' + correct;
+    showFeedback('✗ ცადე ისევ!', false);
   }
 
-  // ვარსკვლავები
-  updateStars();
+  updateScore();
+  idx++;
+  setTimeout(showWord, ok ? 900 : 1500);
+}
 
-  // სტატისტიკა
+function updateScore() {
   document.getElementById('s-correct').textContent = correctC;
   document.getElementById('s-wrong').textContent = wrongC;
   document.getElementById('s-streak').textContent = streak;
-  document.getElementById('ai-learned').textContent =
-    Object.keys(learned).length + ' კავშირი';
 
-  // შემდეგი სიტყვა
-  setTimeout(nextWord, isCorrect ? 1000 : 1600);
+  // ვარსკვლავები
+  const total = correctC + wrongC;
+  const acc = total > 0 ? correctC/total : 0;
+  let stars = 0;
+  if(acc >= 0.9 && total >= 3) stars = 5;
+  else if(acc >= 0.75 && total >= 3) stars = 4;
+  else if(acc >= 0.6) stars = 3;
+  else if(acc >= 0.4) stars = 2;
+  else if(correctC >= 1) stars = 1;
+  document.querySelectorAll('.star').forEach((s,i) => s.classList.toggle('earned', i < stars));
 }
+
+function finish() {
+  document.getElementById('game-wrap').style.display = 'none';
+  const fs = document.getElementById('finish-screen');
+  fs.classList.add('show');
+
+  const acc = correctC / TOTAL;
+  let emoji, title, starsStr;
+  if(acc >= 0.9) { emoji='🏆'; title='შესანიშნავია!'; starsStr='⭐⭐⭐⭐⭐'; }
+  else if(acc >= 0.75) { emoji='🎉'; title='ძალიან კარგი!'; starsStr='⭐⭐⭐⭐'; }
+  else if(acc >= 0.6) { emoji='😊'; title='კარგია!'; starsStr='⭐⭐⭐'; }
+  else if(acc >= 0.4) { emoji='💪'; title='კიდევ სცადე!'; starsStr='⭐⭐'; }
+  else { emoji='📚'; title='ივარჯიშე!'; starsStr='⭐'; }
+
+  document.getElementById('fin-emoji').textContent = emoji;
+  document.getElementById('fin-title').textContent = title;
+  document.getElementById('fin-stars').textContent = starsStr;
+  document.getElementById('fin-sub').textContent = TOTAL + ' სიტყვა დასრულდა';
+  document.getElementById('fin-correct').textContent = correctC;
+  document.getElementById('fin-wrong').textContent = wrongC;
+}
+
+function restart() { start(); }
 
 function showFeedback(msg, good) {
   const el = document.getElementById('feedback');
@@ -339,35 +349,7 @@ function showFeedback(msg, good) {
   el.classList.add('show');
 }
 
-function updateStars() {
-  const total = correctC + wrongC;
-  if(total === 0) return;
-  const acc = correctC / total;
-  let newStars = 0;
-  if(acc >= 0.9 && total >= 5) newStars = 5;
-  else if(acc >= 0.75 && total >= 5) newStars = 4;
-  else if(acc >= 0.6) newStars = 3;
-  else if(acc >= 0.4) newStars = 2;
-  else if(correctC >= 1) newStars = 1;
-
-  if(newStars > starsEarned) {
-    starsEarned = newStars;
-    document.querySelectorAll('.star').forEach((s,i) => {
-      s.classList.toggle('earned', i < starsEarned);
-    });
-  }
-}
-
-// დავიწყოთ
-nextWord();
+start();
 </script>
-
-<!-- PWA manifest inline -->
-<script>
-if('serviceWorker' in navigator) {
-  // minimal PWA support
-}
-</script>
-
 </body>
 </html>
