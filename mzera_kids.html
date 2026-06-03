@@ -4,352 +4,551 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
 <title>მზერა — სიტყვების თამაში</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Noto+Sans+Georgian:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
-  --sky:#e8f4fd;--ground:#f0faf0;
-  --blue:#4a9eff;--green:#44cc77;--orange:#ff8c42;--purple:#9b59ff;--red:#ff5252;--yellow:#ffd93d;
-  --card-bg:#fff;--shadow:0 8px 32px rgba(0,0,0,0.12);--radius:24px;
+  --blue:#4a9eff;--green:#44cc77;--orange:#ff8c42;
+  --purple:#9b59ff;--red:#ff5252;--yellow:#ffd93d;
+  --card:#fff;--shadow:0 8px 32px rgba(0,0,0,0.13);--r:22px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{
-  background:linear-gradient(160deg,var(--sky) 0%,var(--ground) 100%);
   min-height:100vh;font-family:'Nunito','Noto Sans Georgian',sans-serif;
   display:flex;flex-direction:column;align-items:center;
   padding:16px;overflow-x:hidden;
+  background:linear-gradient(160deg,#e8f4fd 0%,#f0faf0 100%);
 }
 
-.header{text-align:center;margin-bottom:16px;}
-.logo{font-size:36px;font-weight:900;
+/* ── მთავარი გვერდი ── */
+#home{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:16px;}
+.logo{font-size:38px;font-weight:900;text-align:center;margin-bottom:4px;
       background:linear-gradient(135deg,var(--blue),var(--purple));
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.tagline{font-size:13px;color:#888;margin-top:2px;}
+.logo-sub{font-size:14px;color:#999;text-align:center;margin-bottom:8px;}
 
-/* პროგრესი */
-.progress-wrap{width:100%;max-width:420px;margin-bottom:12px;}
-.progress-info{display:flex;justify-content:space-between;
-               font-size:12px;color:#999;font-weight:700;margin-bottom:6px;}
-.progress-bar{height:10px;background:#e0e0e0;border-radius:10px;overflow:hidden;}
-.progress-fill{height:100%;border-radius:10px;transition:width 0.4s ease;
-               background:linear-gradient(90deg,var(--blue),var(--purple));}
+/* ყუთები */
+.boxes{display:flex;flex-direction:column;gap:14px;width:100%;}
+.box{
+  border-radius:var(--r);padding:20px 24px;cursor:pointer;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;overflow:hidden;
+  -webkit-user-select:none;user-select:none;
+}
+.box:active{transform:scale(0.97);}
+.box.locked{opacity:0.45;cursor:not-allowed;filter:grayscale(0.4);}
+.box-emoji{font-size:40px;flex-shrink:0;}
+.box-info{flex:1;}
+.box-title{font-size:19px;font-weight:900;color:#fff;}
+.box-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px;}
+.box-lock{font-size:22px;position:absolute;right:18px;top:50%;transform:translateY(-50%);}
+.box-done{font-size:22px;position:absolute;right:18px;top:50%;transform:translateY(-50%);}
 
-.stars{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
-.star{font-size:26px;transition:transform 0.3s;filter:grayscale(1);opacity:0.3;}
-.star.earned{filter:none;opacity:1;animation:starPop 0.4s ease;}
-@keyframes starPop{0%{transform:scale(0)}50%{transform:scale(1.4)}100%{transform:scale(1)}}
+.box1{background:linear-gradient(135deg,#4a9eff,#6bc5ff);}
+.box2{background:linear-gradient(135deg,#44cc77,#6deea0);}
+.box3{background:linear-gradient(135deg,#ff8c42,#ffb472);}
+.box4{background:linear-gradient(135deg,#9b59ff,#c490ff);}
+.box5{
+  background:linear-gradient(135deg,#5c3d1e,#8b5e2e);
+  border:3px solid #a0723a;
+  box-shadow:0 8px 32px rgba(92,61,30,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.box5::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(
+    90deg,transparent,transparent 40px,rgba(0,0,0,0.08) 40px,rgba(0,0,0,0.08) 42px
+  ),repeating-linear-gradient(
+    0deg,transparent,transparent 20px,rgba(0,0,0,0.06) 20px,rgba(0,0,0,0.06) 22px
+  );
+}
+.box5 .box-title,.box5 .box-sub{position:relative;z-index:1;}
+.box5 .box-emoji{position:relative;z-index:1;}
+
+/* ── თამაშის ეკრანი ── */
+#game{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center;gap:12px;}
+
+.game-header{display:flex;align-items:center;gap:12px;width:100%;}
+.back-btn{background:var(--card);border:2px solid #e0e0e0;border-radius:12px;
+          padding:8px 14px;font-size:14px;font-weight:800;cursor:pointer;color:#666;}
+.level-badge{flex:1;text-align:center;font-size:14px;font-weight:800;color:#888;}
+
+.progress-wrap{width:100%;}
+.prog-info{display:flex;justify-content:space-between;font-size:12px;color:#999;font-weight:700;margin-bottom:5px;}
+.prog-bar{height:10px;background:#e0e0e0;border-radius:10px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:10px;transition:width 0.4s;
+           background:linear-gradient(90deg,var(--blue),var(--purple));}
 
 .question-box{
-  background:var(--card-bg);border-radius:var(--radius);
-  padding:20px 24px;width:100%;max-width:420px;
-  box-shadow:var(--shadow);margin-bottom:16px;text-align:center;
+  background:var(--card);border-radius:var(--r);padding:22px;
+  width:100%;box-shadow:var(--shadow);text-align:center;
 }
-.question-label{font-size:13px;color:#aaa;margin-bottom:8px;font-weight:700;letter-spacing:0.05em;}
-.question-word{font-size:42px;font-weight:900;color:#333;transition:all 0.3s;}
-.question-word.bounce{animation:bounce 0.5s ease;}
+.q-label{font-size:13px;color:#bbb;font-weight:700;letter-spacing:0.05em;margin-bottom:8px;}
+.q-word{font-size:44px;font-weight:900;color:#333;}
+.q-word.bounce{animation:bounce 0.5s ease;}
 @keyframes bounce{0%,100%{transform:scale(1)}30%{transform:scale(1.15)}60%{transform:scale(0.95)}}
-.question-hint{font-size:13px;color:#bbb;margin-top:8px;}
+.q-hint{font-size:13px;color:#bbb;margin-top:8px;}
 
-.categories{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:12px;width:100%;max-width:420px;margin-bottom:16px;
-}
+.cats{display:grid;gap:10px;width:100%;}
+.cats.cols2{grid-template-columns:1fr 1fr;}
+.cats.cols3{grid-template-columns:1fr 1fr 1fr;}
+.cats.cols4{grid-template-columns:1fr 1fr;}
+
 .cat-btn{
-  background:var(--card-bg);border:3px solid transparent;
-  border-radius:var(--radius);padding:18px 12px;
-  font-family:'Nunito','Noto Sans Georgian',sans-serif;
-  font-size:17px;font-weight:800;color:#555;
-  cursor:pointer;transition:all 0.2s;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  box-shadow:var(--shadow);-webkit-user-select:none;user-select:none;
+  background:var(--card);border:3px solid transparent;border-radius:var(--r);
+  padding:16px 8px;font-family:'Nunito','Noto Sans Georgian',sans-serif;
+  font-size:16px;font-weight:800;color:#555;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  box-shadow:var(--shadow);transition:all 0.2s;-webkit-user-select:none;user-select:none;
 }
 .cat-btn:active{transform:scale(0.95);}
-.cat-btn .emoji{font-size:32px;}
+.cat-btn .ce{font-size:28px;}
 .cat-btn[data-cat="ცხოველი"]{border-color:var(--orange);}
-.cat-btn[data-cat="ცხოველი"]:hover{background:rgba(255,140,66,0.1);}
 .cat-btn[data-cat="საკვები"]{border-color:var(--green);}
-.cat-btn[data-cat="საკვები"]:hover{background:rgba(68,204,119,0.1);}
 .cat-btn[data-cat="ტანსაცმელი"]{border-color:var(--purple);}
-.cat-btn[data-cat="ტანსაცმელი"]:hover{background:rgba(155,89,255,0.1);}
 .cat-btn[data-cat="სახლი"]{border-color:var(--blue);}
-.cat-btn[data-cat="სახლი"]:hover{background:rgba(74,158,255,0.1);}
-.cat-btn.correct{animation:correct 0.5s ease;background:rgba(68,204,119,0.15);}
-.cat-btn.wrong{animation:wrong 0.4s ease;}
-@keyframes correct{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-@keyframes wrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.cat-btn[data-cat="ბუნება"]{border-color:#22b573;}
+.cat-btn[data-cat="ტრანსპორტი"]{border-color:#e74c3c;}
+.cat-btn.correct{background:rgba(68,204,119,0.15);animation:bok 0.5s ease;}
+.cat-btn.wrong{animation:bwrong 0.4s ease;}
+@keyframes bok{0%{transform:scale(1)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
+@keyframes bwrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
-.score-row{display:flex;gap:12px;justify-content:center;width:100%;max-width:420px;margin-bottom:14px;}
-.score-card{flex:1;background:var(--card-bg);border-radius:16px;padding:10px;text-align:center;box-shadow:var(--shadow);}
-.score-card .num{font-size:26px;font-weight:900;}
-.score-card .lbl{font-size:11px;color:#aaa;font-weight:700;}
-.score-card.correct-s .num{color:var(--green);}
-.score-card.wrong-s .num{color:var(--red);}
-.score-card.streak-s .num{color:var(--orange);}
+.score-row{display:flex;gap:10px;width:100%;}
+.sc{flex:1;background:var(--card);border-radius:14px;padding:10px;text-align:center;box-shadow:var(--shadow);}
+.sc .sn{font-size:24px;font-weight:900;}
+.sc .sl{font-size:11px;color:#aaa;font-weight:700;}
+.sc.ok .sn{color:var(--green);}
+.sc.err .sn{color:var(--red);}
+.sc.str .sn{color:var(--orange);}
 
-.feedback{
-  font-size:28px;position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%);pointer-events:none;opacity:0;
-  z-index:100;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.2);
-}
-.feedback.show{opacity:1;animation:feedbackAnim 0.8s ease forwards;}
-@keyframes feedbackAnim{
-  0%{opacity:1;transform:translate(-50%,-50%) scale(0.5)}
-  30%{opacity:1;transform:translate(-50%,-60%) scale(1.2)}
-  100%{opacity:0;transform:translate(-50%,-80%) scale(1)}
-}
-
-/* დასასრულის ეკრანი */
-.finish-screen{
-  display:none;flex-direction:column;align-items:center;
-  background:var(--card-bg);border-radius:var(--radius);
-  padding:32px 24px;width:100%;max-width:420px;
-  box-shadow:var(--shadow);text-align:center;gap:16px;
-}
-.finish-screen.show{display:flex;}
-.finish-emoji{font-size:72px;animation:bounce 0.6s ease;}
-.finish-title{font-size:28px;font-weight:900;color:#333;}
-.finish-sub{font-size:15px;color:#888;}
-.finish-stars{font-size:36px;letter-spacing:4px;}
-.finish-stats{display:flex;gap:16px;justify-content:center;width:100%;}
-.fstat{flex:1;background:#f8f8f8;border-radius:16px;padding:12px;text-align:center;}
-.fstat .fn{font-size:28px;font-weight:900;}
-.fstat .fl{font-size:11px;color:#aaa;font-weight:700;}
-.fstat.fc .fn{color:var(--green);}
-.fstat.fw .fn{color:var(--red);}
-
-.btn-restart{
-  background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;border:none;border-radius:16px;
-  padding:16px 40px;font-size:18px;font-weight:900;
-  cursor:pointer;box-shadow:0 4px 20px rgba(74,158,255,0.4);
+/* ── დასასრულის ეკრანი ── */
+#finish{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center;
+        background:var(--card);border-radius:var(--r);padding:32px 24px;
+        box-shadow:var(--shadow);text-align:center;gap:14px;}
+.fin-emoji{font-size:80px;}
+.fin-title{font-size:30px;font-weight:900;color:#333;}
+.fin-stars{font-size:34px;letter-spacing:6px;}
+.fin-stats{display:flex;gap:12px;width:100%;}
+.fst{flex:1;background:#f8f8f8;border-radius:14px;padding:12px;text-align:center;}
+.fst .fn{font-size:28px;font-weight:900;}
+.fst .fl{font-size:11px;color:#aaa;font-weight:700;}
+.fst.fc .fn{color:var(--green);}
+.fst.fw .fn{color:var(--red);}
+.btn-next{
+  background:linear-gradient(135deg,var(--green),#22b573);
+  color:#fff;border:none;border-radius:14px;padding:16px 32px;
+  font-size:17px;font-weight:900;cursor:pointer;
   font-family:'Nunito','Noto Sans Georgian',sans-serif;
-  transition:transform 0.2s;
+  box-shadow:0 4px 20px rgba(68,204,119,0.4);transition:transform 0.2s;width:100%;
 }
-.btn-restart:active{transform:scale(0.95);}
+.btn-next:active{transform:scale(0.97);}
+.btn-home{
+  background:#f0f0f0;color:#888;border:none;border-radius:14px;
+  padding:12px 24px;font-size:15px;font-weight:800;cursor:pointer;
+  font-family:'Nunito','Noto Sans Georgian',sans-serif;width:100%;
+}
 
-.game-wrap{display:flex;flex-direction:column;align-items:center;width:100%;}
+/* ── feedback ── */
+.feedback{
+  font-size:30px;position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+  z-index:200;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.15);
+}
+.feedback.show{animation:fbAnim 0.9s ease forwards;}
+@keyframes fbAnim{
+  0%{opacity:1;transform:translate(-50%,-50%) scale(0.4)}
+  30%{opacity:1;transform:translate(-50%,-62%) scale(1.2)}
+  100%{opacity:0;transform:translate(-50%,-85%) scale(1)}
+}
+
+/* ── ჯილდო overlay ── */
+#reward-overlay{
+  display:none;position:fixed;inset:0;z-index:300;
+  justify-content:center;align-items:center;
+  background:rgba(0,0,0,0.3);flex-direction:column;gap:16px;
+}
+#reward-overlay.show{display:flex;}
+.reward-box{
+  background:#fff;border-radius:28px;padding:36px;text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:340px;width:90%;
+}
+.reward-anim{font-size:80px;animation:bounce 0.6s ease;}
+.reward-title{font-size:26px;font-weight:900;color:#333;margin-top:8px;}
+.reward-sub{font-size:14px;color:#999;margin-top:4px;}
+.reward-btn{
+  margin-top:20px;background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:#fff;border:none;border-radius:14px;padding:14px 32px;
+  font-size:16px;font-weight:900;cursor:pointer;width:100%;
+  font-family:'Nunito','Noto Sans Georgian',sans-serif;
+}
+
+/* ── ფეირვერკი ── */
+.firework{position:fixed;pointer-events:none;z-index:250;}
+.spark{position:absolute;width:8px;height:8px;border-radius:50%;animation:spark 1.2s ease-out forwards;}
+@keyframes spark{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:var(--tx) var(--ty) scale(0);opacity:0}}
 </style>
 </head>
 <body>
 
-<div class="header">
+<!-- მთავარი გვერდი -->
+<div id="home">
   <div class="logo">🌟 მზერა</div>
-  <div class="tagline">სიტყვების თამაში</div>
+  <div class="logo-sub">სიტყვების თამაში</div>
+
+  <div class="boxes">
+    <div class="box box1" onclick="startLevel(0)" id="box0">
+      <div class="box-emoji">🟦</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 1 — დასაწყისი</div>
+        <div class="box-sub">2 კატეგორია · 10 სიტყვა · 4-5 წელი</div>
+      </div>
+    </div>
+    <div class="box box2 locked" onclick="startLevel(1)" id="box1">
+      <div class="box-emoji">🟩</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 2 — გამოცდილი</div>
+        <div class="box-sub">3 კატეგორია · 15 სიტყვა · 5-6 წელი</div>
+      </div>
+      <div class="box-lock" id="lock1">🔒</div>
+    </div>
+    <div class="box box3 locked" onclick="startLevel(2)" id="box2">
+      <div class="box-emoji">🟧</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 3 — ოსტატი</div>
+        <div class="box-sub">4 კატეგორია · 20 სიტყვა · 6-7 წელი</div>
+      </div>
+      <div class="box-lock" id="lock2">🔒</div>
+    </div>
+    <div class="box box4 locked" onclick="startLevel(3)" id="box3">
+      <div class="box-emoji">🟥</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 4 — ჩემპიონი</div>
+        <div class="box-sub">5 კატეგორია · 25 სიტყვა · 7-8 წელი</div>
+      </div>
+      <div class="box-lock" id="lock3">🔒</div>
+    </div>
+    <div class="box box5 locked" onclick="startLevel(4)" id="box4">
+      <div class="box-emoji">🪵</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 5 — საიდუმლო</div>
+        <div class="box-sub">ყველა კატეგორია · 30 სიტყვა · 8-10 წელი</div>
+      </div>
+      <div class="box-lock" id="lock4">🔒</div>
+    </div>
+  </div>
 </div>
 
 <!-- თამაშის ეკრანი -->
-<div class="game-wrap" id="game-wrap">
+<div id="game">
+  <div class="game-header">
+    <button class="back-btn" onclick="goHome()">← უკან</button>
+    <div class="level-badge" id="level-badge">ეტაპი 1</div>
+  </div>
   <div class="progress-wrap">
-    <div class="progress-info">
-      <span id="prog-text">1 / 20</span>
+    <div class="prog-info">
+      <span id="prog-txt">1 / 10</span>
       <span id="prog-pct">0%</span>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
-    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
-
-  <div class="stars" id="stars">
-    <div class="star">⭐</div><div class="star">⭐</div><div class="star">⭐</div>
-    <div class="star">⭐</div><div class="star">⭐</div>
-  </div>
-
   <div class="question-box">
-    <div class="question-label">რომელ ჯგუფს მიეკუთვნება?</div>
-    <div class="question-word" id="word">...</div>
-    <div class="question-hint" id="hint">აირჩიე სწორი კატეგორია</div>
+    <div class="q-label">რომელ ჯგუფს მიეკუთვნება?</div>
+    <div class="q-word" id="q-word">...</div>
+    <div class="q-hint" id="q-hint">აირჩიე სწორი კატეგორია</div>
   </div>
-
-  <div class="categories">
-    <button class="cat-btn" data-cat="ცხოველი" onclick="answer('ცხოველი')">
-      <span class="emoji">🐾</span>ცხოველი
-    </button>
-    <button class="cat-btn" data-cat="საკვები" onclick="answer('საკვები')">
-      <span class="emoji">🍎</span>საკვები
-    </button>
-    <button class="cat-btn" data-cat="ტანსაცმელი" onclick="answer('ტანსაცმელი')">
-      <span class="emoji">👕</span>ტანსაცმელი
-    </button>
-    <button class="cat-btn" data-cat="სახლი" onclick="answer('სახლი')">
-      <span class="emoji">🏠</span>სახლი
-    </button>
-  </div>
-
+  <div class="cats" id="cats-grid"></div>
   <div class="score-row">
-    <div class="score-card correct-s"><div class="num" id="s-correct">0</div><div class="lbl">✓ სწორი</div></div>
-    <div class="score-card wrong-s"><div class="num" id="s-wrong">0</div><div class="lbl">✗ შეცდომა</div></div>
-    <div class="score-card streak-s"><div class="num" id="s-streak">0</div><div class="lbl">🔥 ზედიზედ</div></div>
+    <div class="sc ok"><div class="sn" id="s-ok">0</div><div class="sl">✓ სწორი</div></div>
+    <div class="sc err"><div class="sn" id="s-err">0</div><div class="sl">✗ შეცდომა</div></div>
+    <div class="sc str"><div class="sn" id="s-str">0</div><div class="sl">🔥 ზედიზედ</div></div>
   </div>
 </div>
 
-<!-- დასასრულის ეკრანი -->
-<div class="finish-screen" id="finish-screen">
-  <div class="finish-emoji" id="fin-emoji">🎉</div>
-  <div class="finish-title" id="fin-title">მშვენიერია!</div>
-  <div class="finish-stars" id="fin-stars">⭐⭐⭐⭐⭐</div>
-  <div class="finish-sub" id="fin-sub">20 სიტყვა დასრულდა</div>
-  <div class="finish-stats">
-    <div class="fstat fc"><div class="fn" id="fin-correct">0</div><div class="fl">✓ სწორი</div></div>
-    <div class="fstat fw"><div class="fn" id="fin-wrong">0</div><div class="fl">✗ შეცდომა</div></div>
+<!-- დასასრული -->
+<div id="finish">
+  <div class="fin-emoji" id="fin-emoji">🎉</div>
+  <div class="fin-title" id="fin-title">მშვენიერია!</div>
+  <div class="fin-stars" id="fin-stars">⭐⭐⭐⭐⭐</div>
+  <div class="fin-stats">
+    <div class="fst fc"><div class="fn" id="fin-ok">0</div><div class="fl">✓ სწორი</div></div>
+    <div class="fst fw"><div class="fn" id="fin-err">0</div><div class="fl">✗ შეცდომა</div></div>
   </div>
-  <button class="btn-restart" onclick="restart()">🔄 ხელახლა</button>
+  <button class="btn-next" id="btn-next" onclick="nextLevel()">შემდეგი ეტაპი →</button>
+  <button class="btn-home" onclick="goHome()">🏠 მთავარ გვერდზე</button>
+</div>
+
+<!-- ჯილდო -->
+<div id="reward-overlay">
+  <div class="reward-box">
+    <div class="reward-anim" id="reward-anim">🎉</div>
+    <div class="reward-title" id="reward-title">გაგიმარჯოს!</div>
+    <div class="reward-sub" id="reward-sub">ეტაპი დასრულდა</div>
+    <button class="reward-btn" onclick="closeReward()">გავაგრძელოთ →</button>
+  </div>
 </div>
 
 <div class="feedback" id="feedback"></div>
 
 <script>
-const TOTAL = 20;
-
-const WORDS = {
-  ცხოველი: [
+// ── სიტყვების ბაზა ────────────────────────────────────────────
+const ALL = {
+  ცხოველი:[
     {w:'კატა',e:'🐱'},{w:'ძაღლი',e:'🐶'},{w:'თაგვი',e:'🐭'},
     {w:'კურდღელი',e:'🐰'},{w:'ლომი',e:'🦁'},{w:'სპილო',e:'🐘'},
     {w:'ციყვი',e:'🐿️'},{w:'მელა',e:'🦊'},{w:'დათვი',e:'🐻'},
-    {w:'ჟირაფი',e:'🦒'},{w:'ვეფხვი',e:'🐯'},{w:'მგელი',e:'🐺'},
-    {w:'ცხვარი',e:'🐑'},{w:'თხა',e:'🐐'},{w:'ირემი',e:'🦌'},
+    {w:'ჟირაფი',e:'🦒'},{w:'ვეფხვი',e:'🐯'},{w:'ირემი',e:'🦌'},
+    {w:'ცხვარი',e:'🐑'},{w:'თხა',e:'🐐'},{w:'ღორი',e:'🐷'},
   ],
-  საკვები: [
+  საკვები:[
     {w:'ვაშლი',e:'🍎'},{w:'პური',e:'🍞'},{w:'ყველი',e:'🧀'},
     {w:'კვერცხი',e:'🥚'},{w:'ბანანი',e:'🍌'},{w:'მარწყვი',e:'🍓'},
-    {w:'კომბოსტო',e:'🥬'},{w:'სტაფილო',e:'🥕'},{w:'კარტოფილი',e:'🥔'},
-    {w:'მანდარინი',e:'🍊'},{w:'ყურძენი',e:'🍇'},{w:'ტომატი',e:'🍅'},
-    {w:'კიტრი',e:'🥒'},{w:'ხახვი',e:'🧅'},{w:'მსხალი',e:'🍐'},
+    {w:'სტაფილო',e:'🥕'},{w:'კარტოფილი',e:'🥔'},{w:'მანდარინი',e:'🍊'},
+    {w:'ყურძენი',e:'🍇'},{w:'ტომატი',e:'🍅'},{w:'კიტრი',e:'🥒'},
+    {w:'მსხალი',e:'🍐'},{w:'ხახვი',e:'🧅'},{w:'კომბოსტო',e:'🥬'},
   ],
-  ტანსაცმელი: [
+  ტანსაცმელი:[
     {w:'პერანგი',e:'👔'},{w:'ქუდი',e:'🎩'},{w:'ფეხსაცმელი',e:'👟'},
     {w:'შარვალი',e:'👖'},{w:'კაბა',e:'👗'},{w:'ხელთათმანი',e:'🧤'},
     {w:'წინდა',e:'🧦'},{w:'ქურთუკი',e:'🧥'},{w:'ჩექმა',e:'👢'},
-    {w:'სათვალე',e:'👓'},{w:'შარფი',e:'🧣'},{w:'ქამარი',e:'🪡'},
+    {w:'შარფი',e:'🧣'},{w:'სათვალე',e:'👓'},
   ],
-  სახლი: [
-    {w:'მაგიდა',e:'🪑'},{w:'სკამი',e:'🪑'},{w:'საწოლი',e:'🛏️'},
-    {w:'კარი',e:'🚪'},{w:'ფანჯარა',e:'🪟'},{w:'სარკე',e:'🪞'},
-    {w:'ქოთანი',e:'🫕'},{w:'კოვზი',e:'🥄'},{w:'ნათურა',e:'💡'},
-    {w:'საათი',e:'⏰'},{w:'წიგნი',e:'📚'},{w:'ჭიქა',e:'🥛'},
-    {w:'თეფში',e:'🍽️'},{w:'ხალიჩა',e:'🪆'},{w:'ბალიში',e:'🛋️'},
+  სახლი:[
+    {w:'მაგიდა',e:'🪑'},{w:'საწოლი',e:'🛏️'},{w:'კარი',e:'🚪'},
+    {w:'ფანჯარა',e:'🪟'},{w:'ნათურა',e:'💡'},{w:'საათი',e:'⏰'},
+    {w:'წიგნი',e:'📚'},{w:'ჭიქა',e:'🥛'},{w:'თეფში',e:'🍽️'},
+    {w:'კოვზი',e:'🥄'},{w:'ქოთანი',e:'🫕'},{w:'სარკე',e:'🪞'},
+  ],
+  ბუნება:[
+    {w:'მზე',e:'☀️'},{w:'მთვარე',e:'🌙'},{w:'ვარსკვლავი',e:'⭐'},
+    {w:'ხე',e:'🌳'},{w:'ყვავილი',e:'🌸'},{w:'მდინარე',e:'🏞️'},
+    {w:'მთა',e:'⛰️'},{w:'ქარი',e:'💨'},{w:'წვიმა',e:'🌧️'},
+    {w:'ღრუბელი',e:'☁️'},{w:'თოვლი',e:'❄️'},
+  ],
+  ტრანსპორტი:[
+    {w:'მანქანა',e:'🚗'},{w:'ავტობუსი',e:'🚌'},{w:'მატარებელი',e:'🚂'},
+    {w:'თვითმფრინავი',e:'✈️'},{w:'გემი',e:'🚢'},{w:'ველოსიპედი',e:'🚲'},
+    {w:'მოტოციკლეტი',e:'🏍️'},{w:'ტაქსი',e:'🚕'},
   ],
 };
 
-const CATS = Object.keys(WORDS);
+// ── ეტაპები ───────────────────────────────────────────────────
+const LEVELS = [
+  {name:'ეტაპი 1 — დასაწყისი', cats:['ცხოველი','საკვები'],       count:10,
+   reward:{e:'👏',t:'ბრავო!',s:'პირველი ეტაპი გაიარე!'},
+   firework:false},
+  {name:'ეტაპი 2 — გამოცდილი', cats:['ცხოველი','საკვები','ტანსაცმელი'], count:15,
+   reward:{e:'🌸',t:'შესანიშნავია!',s:'ყვავილები შენთვის!'},
+   firework:false},
+  {name:'ეტაპი 3 — ოსტატი',    cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი'], count:20,
+   reward:{e:'🎈',t:'მშვენიერია!',s:'საჰაერო ბურთები!'},
+   firework:false},
+  {name:'ეტაპი 4 — ჩემპიონი',  cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება'], count:25,
+   reward:{e:'⭐',t:'ჩემპიონი!',s:'ვარსკვლავების წვიმა!'},
+   firework:false},
+  {name:'ეტაპი 5 — საიდუმლო', cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება','ტრანსპორტი'], count:30,
+   reward:{e:'🎆',t:'ლეგენდა!',s:'საიდუმლო ეტაპი დაამარცხე!'},
+   firework:true},
+];
 
-// სიტყვების სია 20-ად
-function buildRound() {
-  let all = [];
-  CATS.forEach(cat => WORDS[cat].forEach(item => all.push({...item, cat})));
-  all = all.sort(() => Math.random() - 0.5);
-  return all.slice(0, TOTAL);
+// ── პროგრესი (localStorage) ──────────────────────────────────
+function getUnlocked() {
+  try { return parseInt(localStorage.getItem('mzera_unlocked')||'0'); }
+  catch(e){ return 0; }
+}
+function setUnlocked(n) {
+  try { localStorage.setItem('mzera_unlocked', n); } catch(e){}
 }
 
-let round = [], idx = 0, correctC = 0, wrongC = 0, streak = 0, answering = false;
+let unlocked = getUnlocked();
 
-function start() {
-  round = buildRound();
-  idx = 0; correctC = 0; wrongC = 0; streak = 0;
-  document.getElementById('game-wrap').style.display = 'flex';
-  document.getElementById('finish-screen').classList.remove('show');
-  document.querySelectorAll('.star').forEach(s => s.classList.remove('earned'));
+// ── მთავარი გვერდი ───────────────────────────────────────────
+function renderHome() {
+  for(let i=0;i<5;i++){
+    const box = document.getElementById('box'+i);
+    const lock = document.getElementById('lock'+i);
+    if(i <= unlocked) {
+      box.classList.remove('locked');
+      if(lock) lock.style.display='none';
+    }
+    if(i < unlocked && lock) {
+      lock.style.display='block';
+      lock.textContent='✅';
+    }
+  }
+}
+
+// ── თამაშის ლოგიკა ───────────────────────────────────────────
+let curLevel=0, round=[], idx=0, okC=0, errC=0, streak=0, answering=false;
+
+function buildRound(lv) {
+  const cats = LEVELS[lv].cats;
+  const n    = LEVELS[lv].count;
+  let all=[];
+  cats.forEach(c => ALL[c].forEach(w => all.push({...w,cat:c})));
+  all = all.sort(()=>Math.random()-0.5);
+  return all.slice(0,n);
+}
+
+function startLevel(lv) {
+  if(lv > unlocked) return;
+  curLevel=lv; round=buildRound(lv);
+  idx=0; okC=0; errC=0; streak=0;
+
+  document.getElementById('home').style.display='none';
+  document.getElementById('finish').style.display='none';
+  document.getElementById('game').style.display='flex';
+  document.getElementById('level-badge').textContent=LEVELS[lv].name;
+
+  // კატეგორიების ღილაკები
+  const grid=document.getElementById('cats-grid');
+  const cats=LEVELS[lv].cats;
+  const cols=cats.length<=2?'cols2':cats.length===3?'cols3':'cols4';
+  grid.className='cats '+cols;
+  const catEmoji={'ცხოველი':'🐾','საკვები':'🍎','ტანსაცმელი':'👕','სახლი':'🏠','ბუნება':'🌳','ტრანსპორტი':'🚗'};
+  grid.innerHTML=cats.map(c=>`
+    <button class="cat-btn" data-cat="${c}" onclick="answer('${c}')">
+      <span class="ce">${catEmoji[c]}</span>${c}
+    </button>`).join('');
+
   updateScore();
   showWord();
 }
 
 function showWord() {
-  if(idx >= TOTAL) { finish(); return; }
-  const cur = round[idx];
-  const el = document.getElementById('word');
-  el.textContent = cur.e + ' ' + cur.w;
-  el.classList.remove('bounce');
-  void el.offsetWidth;
-  el.classList.add('bounce');
-  document.getElementById('hint').textContent = 'აირჩიე სწორი კატეგორია';
-  document.querySelectorAll('.cat-btn').forEach(b => {
-    b.classList.remove('correct','wrong');
-    b.disabled = false;
-  });
-  // პროგრესი
-  document.getElementById('prog-text').textContent = (idx+1) + ' / ' + TOTAL;
-  const pct = Math.round(idx/TOTAL*100);
-  document.getElementById('prog-pct').textContent = pct + '%';
-  document.getElementById('prog-fill').style.width = pct + '%';
-  answering = false;
+  if(idx>=round.length){finishLevel();return;}
+  const cur=round[idx];
+  const el=document.getElementById('q-word');
+  el.textContent=cur.e+' '+cur.w;
+  el.classList.remove('bounce');void el.offsetWidth;el.classList.add('bounce');
+  document.getElementById('q-hint').textContent='აირჩიე სწორი კატეგორია';
+  document.querySelectorAll('.cat-btn').forEach(b=>{b.classList.remove('correct','wrong');b.disabled=false;});
+  const pct=Math.round(idx/round.length*100);
+  document.getElementById('prog-txt').textContent=(idx+1)+' / '+round.length;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+  answering=false;
 }
 
 function answer(chosen) {
-  if(answering) return;
-  answering = true;
-  const cur = round[idx];
-  const correct = cur.cat;
-  const ok = chosen === correct;
-  const btn = document.querySelector('[data-cat="'+chosen+'"]');
-  const cBtn = document.querySelector('[data-cat="'+correct+'"]');
+  if(answering)return;
+  answering=true;
+  const cur=round[idx];
+  const ok=chosen===cur.cat;
+  const btn=document.querySelector('[data-cat="'+chosen+'"]');
+  const cBtn=document.querySelector('[data-cat="'+cur.cat+'"]');
+  if(ok){
+    btn.classList.add('correct');okC++;streak++;
+    showFb(['✓ ბრავო!','✓ სწორია!','✓ მშვენიერი!','✓ კარგია!'][Math.floor(Math.random()*4)],true);
+  }else{
+    btn.classList.add('wrong');cBtn.classList.add('correct');
+    errC++;streak=0;
+    document.getElementById('q-hint').textContent='✓ სწორია: '+cur.cat;
+    showFb('✗ ცადე ისევ!',false);
+  }
+  updateScore();idx++;
+  setTimeout(showWord,ok?900:1500);
+}
 
-  if(ok) {
-    btn.classList.add('correct');
-    correctC++; streak++;
-    showFeedback(['✓ ბრავო!','✓ სწორია!','✓ მშვენიერი!','✓ კარგია!'][Math.floor(Math.random()*4)], true);
-  } else {
-    btn.classList.add('wrong');
-    cBtn.classList.add('correct');
-    wrongC++; streak = 0;
-    document.getElementById('hint').textContent = '✓ სწორია: ' + correct;
-    showFeedback('✗ ცადე ისევ!', false);
+function updateScore(){
+  document.getElementById('s-ok').textContent=okC;
+  document.getElementById('s-err').textContent=errC;
+  document.getElementById('s-str').textContent=streak;
+}
+
+function showFb(msg,good){
+  const el=document.getElementById('feedback');
+  el.textContent=msg;el.style.color=good?'#44cc77':'#ff5252';
+  el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
+}
+
+function finishLevel(){
+  document.getElementById('game').style.display='none';
+  const acc=okC/round.length;
+  let em,ti,st;
+  if(acc>=0.9){em='🏆';ti='შესანიშნავია!';st='⭐⭐⭐⭐⭐';}
+  else if(acc>=0.75){em='🎉';ti='ძალიან კარგი!';st='⭐⭐⭐⭐';}
+  else if(acc>=0.6){em='😊';ti='კარგია!';st='⭐⭐⭐';}
+  else if(acc>=0.4){em='💪';ti='კიდევ სცადე!';st='⭐⭐';}
+  else{em='📚';ti='ივარჯიშე!';st='⭐';}
+  document.getElementById('fin-emoji').textContent=em;
+  document.getElementById('fin-title').textContent=ti;
+  document.getElementById('fin-stars').textContent=st;
+  document.getElementById('fin-ok').textContent=okC;
+  document.getElementById('fin-err').textContent=errC;
+
+  // შემდეგი ეტაპი
+  const btnNext=document.getElementById('btn-next');
+  if(curLevel<4){
+    btnNext.style.display='block';
+    btnNext.textContent='ეტაპი '+(curLevel+2)+' →';
+  }else{
+    btnNext.style.display='none';
   }
 
-  updateScore();
-  idx++;
-  setTimeout(showWord, ok ? 900 : 1500);
+  document.getElementById('finish').style.display='flex';
+
+  // განბლოკვა
+  if(acc>=0.6 && curLevel>=unlocked){
+    unlocked=Math.min(4,curLevel+1);
+    setUnlocked(unlocked);
+    setTimeout(()=>showReward(curLevel),600);
+  }
 }
 
-function updateScore() {
-  document.getElementById('s-correct').textContent = correctC;
-  document.getElementById('s-wrong').textContent = wrongC;
-  document.getElementById('s-streak').textContent = streak;
-
-  // ვარსკვლავები
-  const total = correctC + wrongC;
-  const acc = total > 0 ? correctC/total : 0;
-  let stars = 0;
-  if(acc >= 0.9 && total >= 3) stars = 5;
-  else if(acc >= 0.75 && total >= 3) stars = 4;
-  else if(acc >= 0.6) stars = 3;
-  else if(acc >= 0.4) stars = 2;
-  else if(correctC >= 1) stars = 1;
-  document.querySelectorAll('.star').forEach((s,i) => s.classList.toggle('earned', i < stars));
+function showReward(lv){
+  const r=LEVELS[lv].reward;
+  document.getElementById('reward-anim').textContent=r.e;
+  document.getElementById('reward-title').textContent=r.t;
+  document.getElementById('reward-sub').textContent=r.s;
+  document.getElementById('reward-overlay').classList.add('show');
+  if(LEVELS[lv].firework) launchFireworks();
 }
 
-function finish() {
-  document.getElementById('game-wrap').style.display = 'none';
-  const fs = document.getElementById('finish-screen');
-  fs.classList.add('show');
-
-  const acc = correctC / TOTAL;
-  let emoji, title, starsStr;
-  if(acc >= 0.9) { emoji='🏆'; title='შესანიშნავია!'; starsStr='⭐⭐⭐⭐⭐'; }
-  else if(acc >= 0.75) { emoji='🎉'; title='ძალიან კარგი!'; starsStr='⭐⭐⭐⭐'; }
-  else if(acc >= 0.6) { emoji='😊'; title='კარგია!'; starsStr='⭐⭐⭐'; }
-  else if(acc >= 0.4) { emoji='💪'; title='კიდევ სცადე!'; starsStr='⭐⭐'; }
-  else { emoji='📚'; title='ივარჯიშე!'; starsStr='⭐'; }
-
-  document.getElementById('fin-emoji').textContent = emoji;
-  document.getElementById('fin-title').textContent = title;
-  document.getElementById('fin-stars').textContent = starsStr;
-  document.getElementById('fin-sub').textContent = TOTAL + ' სიტყვა დასრულდა';
-  document.getElementById('fin-correct').textContent = correctC;
-  document.getElementById('fin-wrong').textContent = wrongC;
+function closeReward(){
+  document.getElementById('reward-overlay').classList.remove('show');
 }
 
-function restart() { start(); }
-
-function showFeedback(msg, good) {
-  const el = document.getElementById('feedback');
-  el.textContent = msg;
-  el.style.color = good ? '#44cc77' : '#ff5252';
-  el.classList.remove('show');
-  void el.offsetWidth;
-  el.classList.add('show');
+function nextLevel(){
+  if(curLevel<4) startLevel(curLevel+1);
 }
 
-start();
+function goHome(){
+  document.getElementById('game').style.display='none';
+  document.getElementById('finish').style.display='none';
+  document.getElementById('home').style.display='flex';
+  renderHome();
+}
+
+// ── ფეირვერკი ─────────────────────────────────────────────────
+function launchFireworks(){
+  const colors=['#ff5252','#ffd93d','#44cc77','#4a9eff','#9b59ff','#ff8c42'];
+  for(let f=0;f<8;f++){
+    setTimeout(()=>{
+      const fw=document.createElement('div');
+      fw.className='firework';
+      const x=Math.random()*window.innerWidth;
+      const y=Math.random()*window.innerHeight*0.6;
+      fw.style.left=x+'px';fw.style.top=y+'px';
+      for(let i=0;i<16;i++){
+        const sp=document.createElement('div');
+        sp.className='spark';
+        const angle=(i/16)*Math.PI*2;
+        const dist=80+Math.random()*80;
+        sp.style.background=colors[Math.floor(Math.random()*colors.length)];
+        sp.style.setProperty('--tx','translateX('+(Math.cos(angle)*dist)+'px)');
+        sp.style.setProperty('--ty','translateY('+(Math.sin(angle)*dist)+'px)');
+        sp.style.animationDelay=(Math.random()*0.3)+'s';
+        fw.appendChild(sp);
+      }
+      document.body.appendChild(fw);
+      setTimeout(()=>fw.remove(),1500);
+    },f*300);
+  }
+}
+
+// ── init ──────────────────────────────────────────────────────
+renderHome();
 </script>
 </body>
 </html>
