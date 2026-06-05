@@ -7,7 +7,7 @@
 <title>მზერა — სიტყვების თამაში</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Noto+Sans+Georgian:wght@700;800&display=swap" rel="stylesheet">
 <style>
-:root {
+:root{
   --blue:#4a9eff;--green:#44cc77;--orange:#ff8c42;
   --purple:#9b59ff;--red:#ff5252;--yellow:#ffd93d;
   --card:#fff;--shadow:0 8px 32px rgba(0,0,0,0.13);--r:22px;
@@ -20,58 +20,45 @@ body{
   background:linear-gradient(160deg,#e8f4fd 0%,#f0faf0 100%);
 }
 
-/* ── მთავარი გვერდი ── */
-#home{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:16px;}
-.logo{font-size:38px;font-weight:900;text-align:center;margin-bottom:4px;
+/* ── მთავარი ── */
+#home{width:100%;max-width:440px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+.logo{font-size:38px;font-weight:900;text-align:center;
       background:linear-gradient(135deg,var(--blue),var(--purple));
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.logo-sub{font-size:14px;color:#999;text-align:center;margin-bottom:8px;}
+.logo-sub{font-size:14px;color:#999;text-align:center;margin-bottom:4px;}
 
-/* ყუთები */
-.boxes{display:flex;flex-direction:column;gap:14px;width:100%;}
-.box{
-  border-radius:var(--r);padding:20px 24px;cursor:pointer;
-  display:flex;align-items:center;gap:16px;
-  box-shadow:var(--shadow);transition:transform 0.2s,box-shadow 0.2s;
-  position:relative;overflow:hidden;
-  -webkit-user-select:none;user-select:none;
-}
+.boxes{display:flex;flex-direction:column;gap:12px;width:100%;}
+.box{border-radius:var(--r);padding:18px 20px;cursor:pointer;
+     display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);
+     transition:transform 0.2s;position:relative;overflow:hidden;
+     -webkit-user-select:none;user-select:none;}
 .box:active{transform:scale(0.97);}
-.box.locked{opacity:0.45;cursor:not-allowed;filter:grayscale(0.4);}
-.box-emoji{font-size:40px;flex-shrink:0;}
-.box-info{flex:1;}
-.box-title{font-size:19px;font-weight:900;color:#fff;}
-.box-sub{font-size:12px;color:rgba(255,255,255,0.8);margin-top:2px;}
-.box-lock{font-size:22px;position:absolute;right:18px;top:50%;transform:translateY(-50%);}
-.box-done{font-size:22px;position:absolute;right:18px;top:50%;transform:translateY(-50%);}
-
+.box.locked{opacity:0.4;cursor:not-allowed;filter:grayscale(0.5);}
+.box-emoji{font-size:36px;flex-shrink:0;}
+.box-title{font-size:17px;font-weight:900;color:#fff;}
+.box-sub{font-size:11px;color:rgba(255,255,255,0.85);margin-top:2px;}
+.box-lock{font-size:20px;position:absolute;right:16px;top:50%;transform:translateY(-50%);}
 .box1{background:linear-gradient(135deg,#4a9eff,#6bc5ff);}
 .box2{background:linear-gradient(135deg,#44cc77,#6deea0);}
 .box3{background:linear-gradient(135deg,#ff8c42,#ffb472);}
 .box4{background:linear-gradient(135deg,#9b59ff,#c490ff);}
-.box5{
+.box5{background:linear-gradient(135deg,#e74c3c,#ff7675);}
+.box6{
   background:linear-gradient(135deg,#5c3d1e,#8b5e2e);
   border:3px solid #a0723a;
-  box-shadow:0 8px 32px rgba(92,61,30,0.4),inset 0 1px 0 rgba(255,255,255,0.1);
+  box-shadow:0 8px 32px rgba(92,61,30,0.4);
 }
-.box5::before{
-  content:'';position:absolute;inset:0;
-  background:repeating-linear-gradient(
-    90deg,transparent,transparent 40px,rgba(0,0,0,0.08) 40px,rgba(0,0,0,0.08) 42px
-  ),repeating-linear-gradient(
-    0deg,transparent,transparent 20px,rgba(0,0,0,0.06) 20px,rgba(0,0,0,0.06) 22px
-  );
-}
-.box5 .box-title,.box5 .box-sub{position:relative;z-index:1;}
-.box5 .box-emoji{position:relative;z-index:1;}
+.box6::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,transparent,transparent 38px,rgba(0,0,0,0.07) 38px,rgba(0,0,0,0.07) 40px),
+             repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(0,0,0,0.05) 18px,rgba(0,0,0,0.05) 20px);}
+.box6 .box-title,.box6 .box-sub,.box6 .box-emoji{position:relative;z-index:1;}
 
-/* ── თამაშის ეკრანი ── */
-#game{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center;gap:12px;}
-
-.game-header{display:flex;align-items:center;gap:12px;width:100%;}
+/* ── თამაშის header ── */
+#game,.spelling-wrap{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center;gap:12px;}
+.game-header{display:flex;align-items:center;gap:10px;width:100%;}
 .back-btn{background:var(--card);border:2px solid #e0e0e0;border-radius:12px;
-          padding:8px 14px;font-size:14px;font-weight:800;cursor:pointer;color:#666;}
-.level-badge{flex:1;text-align:center;font-size:14px;font-weight:800;color:#888;}
+          padding:8px 14px;font-size:13px;font-weight:800;cursor:pointer;color:#666;}
+.level-badge{flex:1;text-align:center;font-size:13px;font-weight:800;color:#888;}
 
 .progress-wrap{width:100%;}
 .prog-info{display:flex;justify-content:space-between;font-size:12px;color:#999;font-weight:700;margin-bottom:5px;}
@@ -79,10 +66,9 @@ body{
 .prog-fill{height:100%;border-radius:10px;transition:width 0.4s;
            background:linear-gradient(90deg,var(--blue),var(--purple));}
 
-.question-box{
-  background:var(--card);border-radius:var(--r);padding:22px;
-  width:100%;box-shadow:var(--shadow);text-align:center;
-}
+/* ── სიტყვების თამაში ── */
+.question-box{background:var(--card);border-radius:var(--r);padding:20px;
+              width:100%;box-shadow:var(--shadow);text-align:center;}
 .q-label{font-size:13px;color:#bbb;font-weight:700;letter-spacing:0.05em;margin-bottom:8px;}
 .q-word{font-size:44px;font-weight:900;color:#333;}
 .q-word.bounce{animation:bounce 0.5s ease;}
@@ -93,97 +79,114 @@ body{
 .cats.cols2{grid-template-columns:1fr 1fr;}
 .cats.cols3{grid-template-columns:1fr 1fr 1fr;}
 .cats.cols4{grid-template-columns:1fr 1fr;}
-
-.cat-btn{
-  background:var(--card);border:3px solid transparent;border-radius:var(--r);
-  padding:16px 8px;font-family:'Nunito','Noto Sans Georgian',sans-serif;
-  font-size:16px;font-weight:800;color:#555;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  box-shadow:var(--shadow);transition:all 0.2s;-webkit-user-select:none;user-select:none;
-}
+.cat-btn{background:var(--card);border:3px solid transparent;border-radius:var(--r);
+         padding:14px 8px;font-family:'Nunito','Noto Sans Georgian',sans-serif;
+         font-size:15px;font-weight:800;color:#555;cursor:pointer;
+         display:flex;flex-direction:column;align-items:center;gap:4px;
+         box-shadow:var(--shadow);transition:all 0.2s;-webkit-user-select:none;user-select:none;}
 .cat-btn:active{transform:scale(0.95);}
-.cat-btn .ce{font-size:28px;}
+.cat-btn .ce{font-size:26px;}
 .cat-btn[data-cat="ცხოველი"]{border-color:var(--orange);}
 .cat-btn[data-cat="საკვები"]{border-color:var(--green);}
 .cat-btn[data-cat="ტანსაცმელი"]{border-color:var(--purple);}
 .cat-btn[data-cat="სახლი"]{border-color:var(--blue);}
 .cat-btn[data-cat="ბუნება"]{border-color:#22b573;}
-.cat-btn[data-cat="ტრანსპორტი"]{border-color:#e74c3c;}
+.cat-btn[data-cat="ტრანსპორტი"]{border-color:var(--red);}
 .cat-btn.correct{background:rgba(68,204,119,0.15);animation:bok 0.5s ease;}
 .cat-btn.wrong{animation:bwrong 0.4s ease;}
 @keyframes bok{0%{transform:scale(1)}50%{transform:scale(1.07)}100%{transform:scale(1)}}
 @keyframes bwrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 
+/* ── ასოების თამაში ── */
+.spelling-wrap{display:none;}
+.spell-box{background:var(--card);border-radius:var(--r);padding:24px;
+           width:100%;box-shadow:var(--shadow);text-align:center;}
+.spell-emoji{font-size:64px;margin-bottom:8px;}
+.spell-hint{font-size:14px;color:#bbb;margin-bottom:16px;font-weight:700;}
+
+/* პასუხის ველი */
+.answer-slots{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
+.slot{width:48px;height:56px;border-radius:12px;background:#f0f0f0;
+      border:3px solid #ddd;display:flex;align-items:center;justify-content:center;
+      font-size:22px;font-weight:900;color:#333;transition:all 0.2s;cursor:pointer;}
+.slot.filled{background:#e8f4ff;border-color:var(--blue);}
+.slot.correct-slot{background:rgba(68,204,119,0.2);border-color:var(--green);animation:bok 0.4s ease;}
+.slot.wrong-slot{animation:bwrong 0.4s ease;border-color:var(--red);}
+
+/* ასოების ღილაკები */
+.letter-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.letter-btn{width:52px;height:52px;border-radius:14px;background:var(--card);
+            border:3px solid #e0e0e0;font-size:20px;font-weight:900;color:#444;
+            cursor:pointer;box-shadow:var(--shadow);transition:all 0.2s;
+            display:flex;align-items:center;justify-content:center;
+            font-family:'Nunito','Noto Sans Georgian',sans-serif;}
+.letter-btn:active{transform:scale(0.9);}
+.letter-btn.used{opacity:0.3;pointer-events:none;}
+
+.spell-check-btn{margin-top:16px;background:linear-gradient(135deg,var(--blue),var(--purple));
+                 color:#fff;border:none;border-radius:14px;padding:14px 32px;
+                 font-size:16px;font-weight:900;cursor:pointer;width:100%;
+                 font-family:'Nunito','Noto Sans Georgian',sans-serif;
+                 box-shadow:0 4px 20px rgba(74,158,255,0.3);}
+.spell-clear-btn{margin-top:8px;background:#f0f0f0;color:#888;border:none;
+                 border-radius:14px;padding:10px;font-size:14px;font-weight:800;
+                 cursor:pointer;width:100%;font-family:'Nunito','Noto Sans Georgian',sans-serif;}
+
+/* ── ქულა ── */
 .score-row{display:flex;gap:10px;width:100%;}
 .sc{flex:1;background:var(--card);border-radius:14px;padding:10px;text-align:center;box-shadow:var(--shadow);}
-.sc .sn{font-size:24px;font-weight:900;}
+.sc .sn{font-size:22px;font-weight:900;}
 .sc .sl{font-size:11px;color:#aaa;font-weight:700;}
 .sc.ok .sn{color:var(--green);}
 .sc.err .sn{color:var(--red);}
 .sc.str .sn{color:var(--orange);}
 
-/* ── დასასრულის ეკრანი ── */
+/* ── დასასრული ── */
 #finish{display:none;width:100%;max-width:440px;flex-direction:column;align-items:center;
-        background:var(--card);border-radius:var(--r);padding:32px 24px;
-        box-shadow:var(--shadow);text-align:center;gap:14px;}
-.fin-emoji{font-size:80px;}
-.fin-title{font-size:30px;font-weight:900;color:#333;}
-.fin-stars{font-size:34px;letter-spacing:6px;}
-.fin-stats{display:flex;gap:12px;width:100%;}
-.fst{flex:1;background:#f8f8f8;border-radius:14px;padding:12px;text-align:center;}
-.fst .fn{font-size:28px;font-weight:900;}
+        background:var(--card);border-radius:var(--r);padding:28px 20px;
+        box-shadow:var(--shadow);text-align:center;gap:12px;}
+.fin-emoji{font-size:72px;}
+.fin-title{font-size:28px;font-weight:900;color:#333;}
+.fin-stars{font-size:32px;letter-spacing:5px;}
+.fin-stats{display:flex;gap:10px;width:100%;}
+.fst{flex:1;background:#f8f8f8;border-radius:12px;padding:10px;text-align:center;}
+.fst .fn{font-size:26px;font-weight:900;}
 .fst .fl{font-size:11px;color:#aaa;font-weight:700;}
 .fst.fc .fn{color:var(--green);}
 .fst.fw .fn{color:var(--red);}
-.btn-next{
-  background:linear-gradient(135deg,var(--green),#22b573);
-  color:#fff;border:none;border-radius:14px;padding:16px 32px;
-  font-size:17px;font-weight:900;cursor:pointer;
-  font-family:'Nunito','Noto Sans Georgian',sans-serif;
-  box-shadow:0 4px 20px rgba(68,204,119,0.4);transition:transform 0.2s;width:100%;
-}
-.btn-next:active{transform:scale(0.97);}
-.btn-home{
-  background:#f0f0f0;color:#888;border:none;border-radius:14px;
-  padding:12px 24px;font-size:15px;font-weight:800;cursor:pointer;
-  font-family:'Nunito','Noto Sans Georgian',sans-serif;width:100%;
-}
+.btn-next{background:linear-gradient(135deg,var(--green),#22b573);
+          color:#fff;border:none;border-radius:14px;padding:14px;
+          font-size:16px;font-weight:900;cursor:pointer;width:100%;
+          font-family:'Nunito','Noto Sans Georgian',sans-serif;}
+.btn-home{background:#f0f0f0;color:#888;border:none;border-radius:14px;
+          padding:12px;font-size:14px;font-weight:800;cursor:pointer;width:100%;
+          font-family:'Nunito','Noto Sans Georgian',sans-serif;margin-top:4px;}
 
-/* ── feedback ── */
-.feedback{
-  font-size:30px;position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%);pointer-events:none;opacity:0;
-  z-index:200;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.15);
-}
+/* ── ჯილდო ── */
+#reward-overlay{display:none;position:fixed;inset:0;z-index:300;
+                justify-content:center;align-items:center;background:rgba(0,0,0,0.35);}
+#reward-overlay.show{display:flex;}
+.reward-box{background:#fff;border-radius:28px;padding:32px;text-align:center;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:320px;width:88%;}
+.reward-anim{font-size:76px;animation:bounce 0.6s ease;}
+.reward-title{font-size:24px;font-weight:900;color:#333;margin-top:8px;}
+.reward-sub{font-size:13px;color:#999;margin-top:4px;}
+.reward-btn{margin-top:18px;background:linear-gradient(135deg,var(--blue),var(--purple));
+            color:#fff;border:none;border-radius:14px;padding:14px;
+            font-size:15px;font-weight:900;cursor:pointer;width:100%;
+            font-family:'Nunito','Noto Sans Georgian',sans-serif;}
+
+/* feedback */
+.feedback{font-size:28px;position:fixed;top:50%;left:50%;
+          transform:translate(-50%,-50%);pointer-events:none;opacity:0;
+          z-index:200;font-weight:900;text-shadow:0 4px 20px rgba(0,0,0,0.15);}
 .feedback.show{animation:fbAnim 0.9s ease forwards;}
 @keyframes fbAnim{
   0%{opacity:1;transform:translate(-50%,-50%) scale(0.4)}
   30%{opacity:1;transform:translate(-50%,-62%) scale(1.2)}
-  100%{opacity:0;transform:translate(-50%,-85%) scale(1)}
-}
+  100%{opacity:0;transform:translate(-50%,-85%) scale(1)}}
 
-/* ── ჯილდო overlay ── */
-#reward-overlay{
-  display:none;position:fixed;inset:0;z-index:300;
-  justify-content:center;align-items:center;
-  background:rgba(0,0,0,0.3);flex-direction:column;gap:16px;
-}
-#reward-overlay.show{display:flex;}
-.reward-box{
-  background:#fff;border-radius:28px;padding:36px;text-align:center;
-  box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:340px;width:90%;
-}
-.reward-anim{font-size:80px;animation:bounce 0.6s ease;}
-.reward-title{font-size:26px;font-weight:900;color:#333;margin-top:8px;}
-.reward-sub{font-size:14px;color:#999;margin-top:4px;}
-.reward-btn{
-  margin-top:20px;background:linear-gradient(135deg,var(--blue),var(--purple));
-  color:#fff;border:none;border-radius:14px;padding:14px 32px;
-  font-size:16px;font-weight:900;cursor:pointer;width:100%;
-  font-family:'Nunito','Noto Sans Georgian',sans-serif;
-}
-
-/* ── ფეირვერკი ── */
+/* firework */
 .firework{position:fixed;pointer-events:none;z-index:250;}
 .spark{position:absolute;width:8px;height:8px;border-radius:50%;animation:spark 1.2s ease-out forwards;}
 @keyframes spark{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:var(--tx) var(--ty) scale(0);opacity:0}}
@@ -191,11 +194,10 @@ body{
 </head>
 <body>
 
-<!-- მთავარი გვერდი -->
+<!-- მთავარი -->
 <div id="home">
   <div class="logo">🌟 მზერა</div>
   <div class="logo-sub">სიტყვების თამაში</div>
-
   <div class="boxes">
     <div class="box box1" onclick="startLevel(0)" id="box0">
       <div class="box-emoji">🟦</div>
@@ -229,17 +231,25 @@ body{
       <div class="box-lock" id="lock3">🔒</div>
     </div>
     <div class="box box5 locked" onclick="startLevel(4)" id="box4">
-      <div class="box-emoji">🪵</div>
+      <div class="box-emoji">🔤</div>
       <div class="box-info">
-        <div class="box-title">ეტაპი 5 — საიდუმლო</div>
-        <div class="box-sub">ყველა კატეგორია · 30 სიტყვა · 8-10 წელი</div>
+        <div class="box-title">ეტაპი 5 — ასოების ოსტატი</div>
+        <div class="box-sub">სიტყვის დაწყობა ასოებით · 8-10 წელი</div>
       </div>
       <div class="box-lock" id="lock4">🔒</div>
+    </div>
+    <div class="box box6 locked" onclick="startLevel(5)" id="box5">
+      <div class="box-emoji">🪵</div>
+      <div class="box-info">
+        <div class="box-title">ეტაპი 6 — საიდუმლო</div>
+        <div class="box-sub">ყველა კატეგორია · 30 სიტყვა</div>
+      </div>
+      <div class="box-lock" id="lock5">🔒</div>
     </div>
   </div>
 </div>
 
-<!-- თამაშის ეკრანი -->
+<!-- სიტყვების თამაში -->
 <div id="game">
   <div class="game-header">
     <button class="back-btn" onclick="goHome()">← უკან</button>
@@ -247,8 +257,7 @@ body{
   </div>
   <div class="progress-wrap">
     <div class="prog-info">
-      <span id="prog-txt">1 / 10</span>
-      <span id="prog-pct">0%</span>
+      <span id="prog-txt">1 / 10</span><span id="prog-pct">0%</span>
     </div>
     <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
@@ -260,8 +269,35 @@ body{
   <div class="cats" id="cats-grid"></div>
   <div class="score-row">
     <div class="sc ok"><div class="sn" id="s-ok">0</div><div class="sl">✓ სწორი</div></div>
-    <div class="sc err"><div class="sn" id="s-err">0</div><div class="sl">✗ შეცდომა</div></div>
+    <div class="sc err"><div class="sn" id="s-err">0</div><div class="sl">✗ შეცდ.</div></div>
     <div class="sc str"><div class="sn" id="s-str">0</div><div class="sl">🔥 ზედიზედ</div></div>
+  </div>
+</div>
+
+<!-- ასოების თამაში -->
+<div class="spelling-wrap" id="spelling">
+  <div class="game-header">
+    <button class="back-btn" onclick="goHome()">← უკან</button>
+    <div class="level-badge">ეტაპი 5 — ასოები</div>
+  </div>
+  <div class="progress-wrap">
+    <div class="prog-info">
+      <span id="sp-prog-txt">1 / 15</span><span id="sp-prog-pct">0%</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="sp-prog-fill" style="width:0%"></div></div>
+  </div>
+  <div class="spell-box">
+    <div class="spell-emoji" id="spell-emoji">🐱</div>
+    <div class="spell-hint">დაალაგე ასოები სწორად</div>
+    <div class="answer-slots" id="answer-slots"></div>
+    <div class="letter-btns" id="letter-btns"></div>
+    <button class="spell-check-btn" onclick="checkSpelling()">✓ შემოწმება</button>
+    <button class="spell-clear-btn" onclick="clearSpelling()">✕ გასუფთავება</button>
+  </div>
+  <div class="score-row">
+    <div class="sc ok"><div class="sn" id="sp-ok">0</div><div class="sl">✓ სწორი</div></div>
+    <div class="sc err"><div class="sn" id="sp-err">0</div><div class="sl">✗ შეცდ.</div></div>
+    <div class="sc str"><div class="sn" id="sp-str">0</div><div class="sl">🔥 ზედიზედ</div></div>
   </div>
 </div>
 
@@ -317,105 +353,99 @@ const ALL = {
     {w:'მაგიდა',e:'🪑'},{w:'საწოლი',e:'🛏️'},{w:'კარი',e:'🚪'},
     {w:'ფანჯარა',e:'🪟'},{w:'ნათურა',e:'💡'},{w:'საათი',e:'⏰'},
     {w:'წიგნი',e:'📚'},{w:'ჭიქა',e:'🥛'},{w:'თეფში',e:'🍽️'},
-    {w:'კოვზი',e:'🥄'},{w:'ქოთანი',e:'🫕'},{w:'სარკე',e:'🪞'},
+    {w:'კოვზი',e:'🥄'},{w:'სარკე',e:'🪞'},
   ],
   ბუნება:[
-    {w:'მზე',e:'☀️'},{w:'მთვარე',e:'🌙'},{w:'ვარსკვლავი',e:'⭐'},
-    {w:'ხე',e:'🌳'},{w:'ყვავილი',e:'🌸'},{w:'მდინარე',e:'🏞️'},
-    {w:'მთა',e:'⛰️'},{w:'ქარი',e:'💨'},{w:'წვიმა',e:'🌧️'},
-    {w:'ღრუბელი',e:'☁️'},{w:'თოვლი',e:'❄️'},
+    {w:'მზე',e:'☀️'},{w:'მთვარე',e:'🌙'},{w:'ხე',e:'🌳'},
+    {w:'ყვავილი',e:'🌸'},{w:'მთა',e:'⛰️'},{w:'წვიმა',e:'🌧️'},
+    {w:'ღრუბელი',e:'☁️'},{w:'თოვლი',e:'❄️'},{w:'ქარი',e:'💨'},
   ],
   ტრანსპორტი:[
     {w:'მანქანა',e:'🚗'},{w:'ავტობუსი',e:'🚌'},{w:'მატარებელი',e:'🚂'},
     {w:'თვითმფრინავი',e:'✈️'},{w:'გემი',e:'🚢'},{w:'ველოსიპედი',e:'🚲'},
-    {w:'მოტოციკლეტი',e:'🏍️'},{w:'ტაქსი',e:'🚕'},
+    {w:'ტაქსი',e:'🚕'},{w:'მოტოციკლი',e:'🏍️'},
   ],
 };
 
-// ── ეტაპები ───────────────────────────────────────────────────
-const LEVELS = [
-  {name:'ეტაპი 1 — დასაწყისი', cats:['ცხოველი','საკვები'],       count:10,
-   reward:{e:'👏',t:'ბრავო!',s:'პირველი ეტაპი გაიარე!'},
-   firework:false},
-  {name:'ეტაპი 2 — გამოცდილი', cats:['ცხოველი','საკვები','ტანსაცმელი'], count:15,
-   reward:{e:'🌸',t:'შესანიშნავია!',s:'ყვავილები შენთვის!'},
-   firework:false},
-  {name:'ეტაპი 3 — ოსტატი',    cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი'], count:20,
-   reward:{e:'🎈',t:'მშვენიერია!',s:'საჰაერო ბურთები!'},
-   firework:false},
-  {name:'ეტაპი 4 — ჩემპიონი',  cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება'], count:25,
-   reward:{e:'⭐',t:'ჩემპიონი!',s:'ვარსკვლავების წვიმა!'},
-   firework:false},
-  {name:'ეტაპი 5 — საიდუმლო', cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება','ტრანსპორტი'], count:30,
-   reward:{e:'🎆',t:'ლეგენდა!',s:'საიდუმლო ეტაპი დაამარცხე!'},
-   firework:true},
+// ასოებისთვის — მარტივი სიტყვები
+const SPELL_WORDS = [
+  {w:'კატა',e:'🐱'},{w:'ძაღლი',e:'🐶'},{w:'პური',e:'🍞'},
+  {w:'ვაშლი',e:'🍎'},{w:'ლომი',e:'🦁'},{w:'კარი',e:'🚪'},
+  {w:'მზე',e:'☀️'},{w:'ხე',e:'🌳'},{w:'თევზი',e:'🐟'},
+  {w:'კვერცხი',e:'🥚'},{w:'მელა',e:'🦊'},{w:'კაბა',e:'👗'},
+  {w:'საათი',e:'⏰'},{w:'მთვარე',e:'🌙'},{w:'ღორი',e:'🐷'},
 ];
 
-// ── პროგრესი (localStorage) ──────────────────────────────────
-function getUnlocked() {
-  try { return parseInt(localStorage.getItem('mzera_unlocked')||'0'); }
-  catch(e){ return 0; }
-}
-function setUnlocked(n) {
-  try { localStorage.setItem('mzera_unlocked', n); } catch(e){}
-}
+const LEVELS = [
+  {name:'ეტაპი 1',cats:['ცხოველი','საკვები'],count:10,type:'sort',
+   reward:{e:'👏',t:'ბრავო!',s:'პირველი ეტაპი!'},fw:false},
+  {name:'ეტაპი 2',cats:['ცხოველი','საკვები','ტანსაცმელი'],count:15,type:'sort',
+   reward:{e:'🌸',t:'შესანიშნავია!',s:'ყვავილები შენთვის!'},fw:false},
+  {name:'ეტაპი 3',cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი'],count:20,type:'sort',
+   reward:{e:'🎈',t:'მშვენიერია!',s:'საჰაერო ბურთები!'},fw:false},
+  {name:'ეტაპი 4',cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება'],count:25,type:'sort',
+   reward:{e:'⭐',t:'ჩემპიონი!',s:'ვარსკვლავები!'},fw:false},
+  {name:'ეტაპი 5',cats:[],count:15,type:'spell',
+   reward:{e:'🔤',t:'ოსტატი!',s:'ასოების ოსტატი!'},fw:false},
+  {name:'ეტაპი 6',cats:['ცხოველი','საკვები','ტანსაცმელი','სახლი','ბუნება','ტრანსპორტი'],count:30,type:'sort',
+   reward:{e:'🎆',t:'ლეგენდა!',s:'საიდუმლო ეტაპი!'},fw:true},
+];
 
-let unlocked = getUnlocked();
+const CAT_E={'ცხოველი':'🐾','საკვები':'🍎','ტანსაცმელი':'👕','სახლი':'🏠','ბუნება':'🌳','ტრანსპორტი':'🚗'};
 
-// ── მთავარი გვერდი ───────────────────────────────────────────
-function renderHome() {
-  for(let i=0;i<5;i++){
-    const box = document.getElementById('box'+i);
-    const lock = document.getElementById('lock'+i);
-    if(i <= unlocked) {
-      box.classList.remove('locked');
-      if(lock) lock.style.display='none';
-    }
-    if(i < unlocked && lock) {
-      lock.style.display='block';
-      lock.textContent='✅';
-    }
+function getUnlocked(){try{return parseInt(localStorage.getItem('mzera_u2')||'0');}catch(e){return 0;}}
+function setUnlocked(n){try{localStorage.setItem('mzera_u2',n);}catch(e){}}
+let unlocked=getUnlocked();
+
+function renderHome(){
+  for(let i=0;i<6;i++){
+    const b=document.getElementById('box'+i);
+    const l=document.getElementById('lock'+i);
+    if(i<=unlocked){b.classList.remove('locked');if(l)l.style.display='none';}
+    if(i<unlocked&&l){l.style.display='block';l.textContent='✅';}
   }
 }
 
-// ── თამაშის ლოგიკა ───────────────────────────────────────────
-let curLevel=0, round=[], idx=0, okC=0, errC=0, streak=0, answering=false;
+// ── სიტყვების თამაში ─────────────────────────────────────────
+let curLv=0,round=[],idx=0,okC=0,errC=0,streak=0,answering=false;
 
-function buildRound(lv) {
-  const cats = LEVELS[lv].cats;
-  const n    = LEVELS[lv].count;
+function buildRound(lv){
+  const cats=LEVELS[lv].cats,n=LEVELS[lv].count;
+  // თარიღის მიხედვით seed — ყოველ დღეს სხვა
+  const day=Math.floor(Date.now()/86400000);
   let all=[];
-  cats.forEach(c => ALL[c].forEach(w => all.push({...w,cat:c})));
-  all = all.sort(()=>Math.random()-0.5);
+  cats.forEach(c=>ALL[c].forEach(w=>all.push({...w,cat:c})));
+  // deterministic shuffle by day
+  for(let i=all.length-1;i>0;i--){
+    const j=(day*1000+i*7+i)%(i+1);
+    [all[i],all[j]]=[all[j],all[i]];
+  }
   return all.slice(0,n);
 }
 
-function startLevel(lv) {
-  if(lv > unlocked) return;
-  curLevel=lv; round=buildRound(lv);
-  idx=0; okC=0; errC=0; streak=0;
-
+function startLevel(lv){
+  if(lv>unlocked)return;
+  curLv=lv;
+  if(LEVELS[lv].type==='spell'){startSpelling();return;}
+  round=buildRound(lv);
+  idx=0;okC=0;errC=0;streak=0;
   document.getElementById('home').style.display='none';
   document.getElementById('finish').style.display='none';
+  document.getElementById('spelling').style.display='none';
   document.getElementById('game').style.display='flex';
   document.getElementById('level-badge').textContent=LEVELS[lv].name;
 
-  // კატეგორიების ღილაკები
-  const grid=document.getElementById('cats-grid');
   const cats=LEVELS[lv].cats;
+  const grid=document.getElementById('cats-grid');
   const cols=cats.length<=2?'cols2':cats.length===3?'cols3':'cols4';
   grid.className='cats '+cols;
-  const catEmoji={'ცხოველი':'🐾','საკვები':'🍎','ტანსაცმელი':'👕','სახლი':'🏠','ბუნება':'🌳','ტრანსპორტი':'🚗'};
-  grid.innerHTML=cats.map(c=>`
-    <button class="cat-btn" data-cat="${c}" onclick="answer('${c}')">
-      <span class="ce">${catEmoji[c]}</span>${c}
-    </button>`).join('');
+  grid.innerHTML=cats.map(c=>`<button class="cat-btn" data-cat="${c}" onclick="answer('${c}')">
+    <span class="ce">${CAT_E[c]}</span>${c}</button>`).join('');
 
-  updateScore();
-  showWord();
+  updateScore();showWord();
 }
 
-function showWord() {
+function showWord(){
   if(idx>=round.length){finishLevel();return;}
   const cur=round[idx];
   const el=document.getElementById('q-word');
@@ -430,24 +460,15 @@ function showWord() {
   answering=false;
 }
 
-function answer(chosen) {
-  if(answering)return;
-  answering=true;
-  const cur=round[idx];
-  const ok=chosen===cur.cat;
+function answer(chosen){
+  if(answering)return;answering=true;
+  const cur=round[idx],ok=chosen===cur.cat;
   const btn=document.querySelector('[data-cat="'+chosen+'"]');
   const cBtn=document.querySelector('[data-cat="'+cur.cat+'"]');
-  if(ok){
-    btn.classList.add('correct');okC++;streak++;
-    showFb(['✓ ბრავო!','✓ სწორია!','✓ მშვენიერი!','✓ კარგია!'][Math.floor(Math.random()*4)],true);
-  }else{
-    btn.classList.add('wrong');cBtn.classList.add('correct');
-    errC++;streak=0;
-    document.getElementById('q-hint').textContent='✓ სწორია: '+cur.cat;
-    showFb('✗ ცადე ისევ!',false);
-  }
-  updateScore();idx++;
-  setTimeout(showWord,ok?900:1500);
+  if(ok){btn.classList.add('correct');okC++;streak++;showFb(['✓ ბრავო!','✓ სწორია!','✓ მშვენიერი!'][Math.floor(Math.random()*3)],true);}
+  else{btn.classList.add('wrong');cBtn.classList.add('correct');errC++;streak=0;
+    document.getElementById('q-hint').textContent='✓ სწორია: '+cur.cat;showFb('✗ ცადე ისევ!',false);}
+  updateScore();idx++;setTimeout(showWord,ok?900:1500);
 }
 
 function updateScore(){
@@ -456,43 +477,125 @@ function updateScore(){
   document.getElementById('s-str').textContent=streak;
 }
 
-function showFb(msg,good){
-  const el=document.getElementById('feedback');
-  el.textContent=msg;el.style.color=good?'#44cc77':'#ff5252';
-  el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
+// ── ასოების თამაში ────────────────────────────────────────────
+let spRound=[],spIdx=0,spOk=0,spErr=0,spStr=0;
+let curAnswer=[],usedIdx=[];
+
+function startSpelling(){
+  spRound=[...SPELL_WORDS].sort(()=>Math.random()-0.5).slice(0,15);
+  spIdx=0;spOk=0;spErr=0;spStr=0;
+  document.getElementById('home').style.display='none';
+  document.getElementById('finish').style.display='none';
+  document.getElementById('game').style.display='none';
+  document.getElementById('spelling').style.display='flex';
+  showSpellWord();
 }
 
+function showSpellWord(){
+  if(spIdx>=spRound.length){finishLevel();return;}
+  const cur=spRound[spIdx];
+  curAnswer=[];usedIdx=[];
+
+  document.getElementById('spell-emoji').textContent=cur.e;
+  const pct=Math.round(spIdx/spRound.length*100);
+  document.getElementById('sp-prog-txt').textContent=(spIdx+1)+' / '+spRound.length;
+  document.getElementById('sp-prog-pct').textContent=pct+'%';
+  document.getElementById('sp-prog-fill').style.width=pct+'%';
+
+  // პასუხის სლოტები
+  const slots=document.getElementById('answer-slots');
+  slots.innerHTML=cur.w.split('').map((_,i)=>`<div class="slot" id="slot-${i}"></div>`).join('');
+
+  // ასოები შერეულად
+  const letters=[...cur.w].sort(()=>Math.random()-0.5);
+  const btns=document.getElementById('letter-btns');
+  btns.innerHTML=letters.map((l,i)=>
+    `<button class="letter-btn" id="lb-${i}" onclick="addLetter('${l}',${i})">${l}</button>`
+  ).join('');
+
+  updateSpScore();
+}
+
+function addLetter(l,btnIdx){
+  const cur=spRound[spIdx];
+  if(curAnswer.length>=cur.w.length)return;
+  curAnswer.push({l,btnIdx});
+  usedIdx.push(btnIdx);
+  document.getElementById('lb-'+btnIdx).classList.add('used');
+  const slot=document.getElementById('slot-'+(curAnswer.length-1));
+  slot.textContent=l;slot.classList.add('filled');
+}
+
+function clearSpelling(){
+  const cur=spRound[spIdx];
+  curAnswer=[];usedIdx=[];
+  cur.w.split('').forEach((_,i)=>{
+    const s=document.getElementById('slot-'+i);
+    if(s){s.textContent='';s.className='slot';}
+  });
+  document.querySelectorAll('.letter-btn').forEach(b=>b.classList.remove('used'));
+}
+
+function checkSpelling(){
+  const cur=spRound[spIdx];
+  const ans=curAnswer.map(x=>x.l).join('');
+  if(ans.length<cur.w.length){showFb('⚠ ყველა ასო!',false);return;}
+  const ok=ans===cur.w;
+  if(ok){
+    cur.w.split('').forEach((_,i)=>{
+      const s=document.getElementById('slot-'+i);
+      if(s){s.classList.add('correct-slot');}
+    });
+    spOk++;spStr++;showFb('✓ სწორია!',true);
+  }else{
+    cur.w.split('').forEach((_,i)=>{
+      const s=document.getElementById('slot-'+i);
+      if(s){s.classList.add('wrong-slot');}
+    });
+    spErr++;spStr=0;showFb('✗ ცადე ისევ!',false);
+  }
+  updateSpScore();spIdx++;
+  setTimeout(()=>{clearSpelling();showSpellWord();},ok?1000:1600);
+}
+
+function updateSpScore(){
+  document.getElementById('sp-ok').textContent=spOk;
+  document.getElementById('sp-err').textContent=spErr;
+  document.getElementById('sp-str').textContent=spStr;
+}
+
+// ── დასასრული ─────────────────────────────────────────────────
 function finishLevel(){
+  const total=LEVELS[curLv].type==='spell'?spRound.length:round.length;
+  const ok=LEVELS[curLv].type==='spell'?spOk:okC;
+  const err=LEVELS[curLv].type==='spell'?spErr:errC;
+  const acc=ok/total;
+
   document.getElementById('game').style.display='none';
-  const acc=okC/round.length;
+  document.getElementById('spelling').style.display='none';
+
   let em,ti,st;
   if(acc>=0.9){em='🏆';ti='შესანიშნავია!';st='⭐⭐⭐⭐⭐';}
   else if(acc>=0.75){em='🎉';ti='ძალიან კარგი!';st='⭐⭐⭐⭐';}
   else if(acc>=0.6){em='😊';ti='კარგია!';st='⭐⭐⭐';}
   else if(acc>=0.4){em='💪';ti='კიდევ სცადე!';st='⭐⭐';}
   else{em='📚';ti='ივარჯიშე!';st='⭐';}
+
   document.getElementById('fin-emoji').textContent=em;
   document.getElementById('fin-title').textContent=ti;
   document.getElementById('fin-stars').textContent=st;
-  document.getElementById('fin-ok').textContent=okC;
-  document.getElementById('fin-err').textContent=errC;
+  document.getElementById('fin-ok').textContent=ok;
+  document.getElementById('fin-err').textContent=err;
 
-  // შემდეგი ეტაპი
   const btnNext=document.getElementById('btn-next');
-  if(curLevel<4){
-    btnNext.style.display='block';
-    btnNext.textContent='ეტაპი '+(curLevel+2)+' →';
-  }else{
-    btnNext.style.display='none';
-  }
+  btnNext.style.display=curLv<5?'block':'none';
+  if(curLv<5)btnNext.textContent='ეტაპი '+(curLv+2)+' →';
 
   document.getElementById('finish').style.display='flex';
 
-  // განბლოკვა
-  if(acc>=0.6 && curLevel>=unlocked){
-    unlocked=Math.min(4,curLevel+1);
-    setUnlocked(unlocked);
-    setTimeout(()=>showReward(curLevel),600);
+  if(acc>=0.6&&curLv>=unlocked){
+    unlocked=Math.min(5,curLv+1);setUnlocked(unlocked);
+    setTimeout(()=>showReward(curLv),600);
   }
 }
 
@@ -502,52 +605,46 @@ function showReward(lv){
   document.getElementById('reward-title').textContent=r.t;
   document.getElementById('reward-sub').textContent=r.s;
   document.getElementById('reward-overlay').classList.add('show');
-  if(LEVELS[lv].firework) launchFireworks();
+  if(LEVELS[lv].fw)launchFireworks();
 }
 
-function closeReward(){
-  document.getElementById('reward-overlay').classList.remove('show');
-}
+function closeReward(){document.getElementById('reward-overlay').classList.remove('show');}
 
-function nextLevel(){
-  if(curLevel<4) startLevel(curLevel+1);
-}
+function nextLevel(){if(curLv<5)startLevel(curLv+1);}
 
 function goHome(){
-  document.getElementById('game').style.display='none';
-  document.getElementById('finish').style.display='none';
+  ['game','finish','spelling'].forEach(id=>document.getElementById(id).style.display='none');
   document.getElementById('home').style.display='flex';
   renderHome();
 }
 
-// ── ფეირვერკი ─────────────────────────────────────────────────
+function showFb(msg,good){
+  const el=document.getElementById('feedback');
+  el.textContent=msg;el.style.color=good?'#44cc77':'#ff5252';
+  el.classList.remove('show');void el.offsetWidth;el.classList.add('show');
+}
+
 function launchFireworks(){
   const colors=['#ff5252','#ffd93d','#44cc77','#4a9eff','#9b59ff','#ff8c42'];
   for(let f=0;f<8;f++){
     setTimeout(()=>{
-      const fw=document.createElement('div');
-      fw.className='firework';
-      const x=Math.random()*window.innerWidth;
-      const y=Math.random()*window.innerHeight*0.6;
-      fw.style.left=x+'px';fw.style.top=y+'px';
+      const fw=document.createElement('div');fw.className='firework';
+      fw.style.left=Math.random()*window.innerWidth+'px';
+      fw.style.top=Math.random()*window.innerHeight*0.6+'px';
       for(let i=0;i<16;i++){
-        const sp=document.createElement('div');
-        sp.className='spark';
-        const angle=(i/16)*Math.PI*2;
-        const dist=80+Math.random()*80;
+        const sp=document.createElement('div');sp.className='spark';
+        const a=(i/16)*Math.PI*2,d=80+Math.random()*80;
         sp.style.background=colors[Math.floor(Math.random()*colors.length)];
-        sp.style.setProperty('--tx','translateX('+(Math.cos(angle)*dist)+'px)');
-        sp.style.setProperty('--ty','translateY('+(Math.sin(angle)*dist)+'px)');
-        sp.style.animationDelay=(Math.random()*0.3)+'s';
+        sp.style.setProperty('--tx','translateX('+(Math.cos(a)*d)+'px)');
+        sp.style.setProperty('--ty','translateY('+(Math.sin(a)*d)+'px)');
+        sp.style.animationDelay=Math.random()*0.3+'s';
         fw.appendChild(sp);
       }
-      document.body.appendChild(fw);
-      setTimeout(()=>fw.remove(),1500);
+      document.body.appendChild(fw);setTimeout(()=>fw.remove(),1500);
     },f*300);
   }
 }
 
-// ── init ──────────────────────────────────────────────────────
 renderHome();
 </script>
 </body>
